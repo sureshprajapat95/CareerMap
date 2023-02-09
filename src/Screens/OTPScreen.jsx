@@ -41,7 +41,7 @@ const OTPScreen = ({navigation}) => {
       />
       <Button
         buttonText={'Verify'}
-        onPress={() => navigation.navigate('Home')}
+        onPress={() => navigation.navigate('profile')}
       />
     </AppContainer>
   );

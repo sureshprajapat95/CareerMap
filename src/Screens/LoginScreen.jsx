@@ -19,20 +19,28 @@ const staticImage = require('../assets/app_logo.png');
 const LoginScreen = ({navigation}) => {
   return (
     <AppContainer>
-      <View style={{alignItems: 'center'}}>
+      <View style={{alignItems: 'center',marginTop: 40}}>
         <Image source={staticImage} style={{width: 350, height: 100}} />
-        <Text>Get 'Career Guidance' from India's best Counselors</Text>
+        <Text style={{fontSize: 16,color: Colors.dark,textAlign: 'center'}}>Get 'Career Guidance' from India's best Counselors</Text>
       </View>
-      <View style={{paddingVertical: 30}}>
+        <View
+          style={{
+            marginTop: 40,
+            borderColor: Colors.primary,
+            borderWidth: 2,
+            borderRadius: 4,
+            padding: 20,
+            marginBottom: 50
+          }}>
         <Text>
           Let's get started, enter your mobile number to sign in your Career Map
           account
         </Text>
       </View>
       <View>
-        <Input keyboardType={'numeric'} placeholder={'Phone Number'} />
+        <Input keyboardType={'numeric'} placeholder={'Phone Number'} customText={true} />
       </View>
-      <View style={{marginTop: 50}}>
+      <View style={{marginTop: 10}}>
         <Button
           buttonText="Sign In"
           onPress={() => {
