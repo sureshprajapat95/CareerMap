@@ -3,5 +3,6 @@ export const Colors = {
     secondary: '#faf',
     light: '#fff',
     lightdark: '#aaa',
+    lightdark1: '#eee',
     dark: '#525252'
 }

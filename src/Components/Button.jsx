@@ -4,23 +4,27 @@ import {Pressable, Text} from 'react-native';
 import {Colors} from '../Utils/Colors';
 import {Device} from '../Utils/DeviceDimensions';
 
-const Button = ({buttonText, onPress}) => {
+const Button = ({buttonText, onPress,buttonStyle={},icon=null,textStyle={}}) => {
+  const [pressed,setPressed] = React.useState(false);
   return (
-    <Pressable onPress={onPress}>
+    <Pressable onPress={onPress} onPressIn={()=> setPressed(prev=> !prev)} onPressOut={()=> setPressed(prev=> !prev)}>
       <Neomorph
-        inner
-        darkShadowColor={Colors.light}
-        lightShadowColor={Colors.dark}
+        inner={pressed}
+        // darkShadowColor={Colors.light}
+        // lightShadowColor={Colors.dark}
         style={{
-          shadowRadius: 15,
+          shadowRadius: 5,
           borderRadius: 35,
           backgroundColor: Colors.primary,
           width: Device.width - 50,
           height: 50,
           alignItems: 'center',
           justifyContent: 'center',
+          flexDirection: 'row',
+          ...buttonStyle
         }}>
-        <Text style={{fontSize: 18, fontWeight: '600', color: Colors.light}}>
+        {icon}
+        <Text style={{fontSize: 18, fontWeight: '600', color: Colors.light,...textStyle}}>
           {buttonText}
         </Text>
       </Neomorph>
@@ -32,15 +36,14 @@ export default Button;
 
 
 export const ButtonHalfWidth = ({buttonText, onPress,style={}}) => {
+  const [pressed,setPressed] = React.useState(false);
   return (
-    <Pressable onPress={onPress}>
+    <Pressable onPress={onPress} onPressIn={()=> setPressed(prev=> !prev)} onPressOut={()=> setPressed(prev=> !prev)}>
       <Neomorph
-        inner
-        darkShadowColor={Colors.light}
-        lightShadowColor={Colors.dark}
+        inner={pressed}
         style={{
           ...style,
-          shadowRadius: 15,
+          shadowRadius: 5,
           borderRadius: 35,
           backgroundColor: Colors.primary,
           width: (Device.width/2)-25,

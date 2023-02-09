@@ -1,18 +1,14 @@
 import React from 'react';
 import {
   Image,
-  StyleSheet,
   Text,
-  TextInput,
   View,
   Pressable,
 } from 'react-native';
-import {Neomorph} from 'react-native-neomorph-shadows';
 import AppContainer from '../Components/AppContainer';
 import Button from '../Components/Button';
 import Input from '../Components/Input';
 import {Colors} from '../Utils/Colors';
-import {Device} from '../Utils/DeviceDimensions';
 
 const staticImage = require('../assets/app_logo.png');
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, StyleSheet} from 'react-native';
+import {StyleSheet} from 'react-native';
 import OTPInputView from '@twotalltotems/react-native-otp-input';
 import {Colors} from '../Utils/Colors';
 import AppContainer from '../Components/AppContainer';
@@ -12,7 +12,6 @@ const INITIAL_STATE = {
 
 const OTPScreen = ({navigation}) => {
   const [states, setStates] = React.useState(INITIAL_STATE);
-  const [otpCode, setOTPCode] = React.useState('');
 
   React.useEffect(() => {
     console.log(states);
@@ -22,7 +21,6 @@ const OTPScreen = ({navigation}) => {
       <OTPInputView
         style={{width: '100%', height: 200}}
         pinCount={6}
-        // code={this.state.code} //You can supply this prop or not. The component will be used as a controlled / uncontrolled component respectively.
         onCodeChanged={code => {
           setStates(prev => {
             return {
@@ -41,7 +39,7 @@ const OTPScreen = ({navigation}) => {
       />
       <Button
         buttonText={'Verify'}
-        onPress={() => navigation.navigate('profile')}
+        onPress={() => navigation.navigate('mainhome')}
       />
     </AppContainer>
   );

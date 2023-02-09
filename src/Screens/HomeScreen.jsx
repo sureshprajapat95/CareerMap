@@ -1,51 +1,29 @@
-import React, {useState} from 'react';
-import {Text, View, Pressable} from 'react-native';
-import {Neomorph} from 'react-native-neomorph-shadows';
-import Hamburger from '../Icons/Hamburger';
+import React from 'react';
+import {View} from 'react-native';
 import {WebView} from 'react-native-webview';
 import {Device} from '../Utils/DeviceDimensions';
 import Button, {ButtonHalfWidth} from '../Components/Button';
-import {Colors} from '../Utils/Colors';
 
 const HomeScreen = ({navigation}) => {
   React.useEffect(() => {
     navigation.setOptions({
-      headerLeft: () => (
-        <Neomorph
-          inner
-          style={{
-            shadowRadius: 2,
-            borderRadius: 10,
-            backgroundColor: '#ff9700',
-            width: 45,
-            height: 35,
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>
-          <Hamburger />
-        </Neomorph>
-      ),
       headerRight: () => (
-        <Pressable onPress={() => navigation.navigate('login')}>
-          <Neomorph
-            inner
-            style={{
-              shadowRadius: 2,
-              borderRadius: 10,
-              backgroundColor: '#ff9700',
-              width: 85,
-              height: 35,
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}>
-            <Text style={{color: '#fff', fontWeight: '600', fontSize: 20}}>
-              Sign In
-            </Text>
-          </Neomorph>
-        </Pressable>
+        <Button
+          onPress={() => navigation.navigate('login')}
+          buttonStyle={{
+            marginRight: 20,
+            width: 80,
+            height: 35,
+            borderRadius: 10,
+          }}
+          textStyle={{
+            textAlign: 'center',
+          }}
+          buttonText={'Sign In'}></Button>
       ),
     });
   }, []);
+
   return (
     <View
       style={{

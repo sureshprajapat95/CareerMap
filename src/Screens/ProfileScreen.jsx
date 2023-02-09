@@ -9,7 +9,7 @@ import {Colors} from '../Utils/Colors';
 
 const ProfileScreen = ({navigation}) => {
   return (
-    <ScrollView style={{backgroundColor: Colors.light, paddingTop: 20}}>
+    <ScrollView style={{backgroundColor: Colors.lightdark1, paddingTop: 20}}>
       <AppContainer>
         <View style={{marginBottom: 5}}>
           <Text style={{marginBottom: 5,fontSize: 18,fontWeight: '500',color: Colors.dark}}>First Name</Text>
