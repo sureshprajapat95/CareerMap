@@ -3,6 +3,7 @@ import {Neomorph} from 'react-native-neomorph-shadows';
 import {Pressable, Text} from 'react-native';
 import {Colors} from '../Utils/Colors';
 import {Device} from '../Utils/DeviceDimensions';
+import { PoppinsRegular } from '../Utils/Fonts';
 
 const Button = ({buttonText, onPress,buttonStyle={},icon=null,textStyle={}}) => {
   const [pressed,setPressed] = React.useState(false);
@@ -24,7 +25,7 @@ const Button = ({buttonText, onPress,buttonStyle={},icon=null,textStyle={}}) => 
           ...buttonStyle
         }}>
         {icon}
-        <Text style={{fontSize: 18, fontWeight: '600', color: Colors.light,...textStyle}}>
+        <Text style={{fontSize: 18, fontWeight: '600', color: Colors.light,...textStyle,fontFamily: PoppinsRegular}}>
           {buttonText}
         </Text>
       </Neomorph>
@@ -51,7 +52,7 @@ export const ButtonHalfWidth = ({buttonText, onPress,style={}}) => {
           alignItems: 'center',
           justifyContent: 'center',
         }}>
-        <Text style={{fontSize: 18, fontWeight: '600', color: Colors.light}}>
+        <Text style={{fontSize: 18, fontWeight: '600', color: Colors.light,fontFamily: PoppinsRegular}}>
           {buttonText}
         </Text>
       </Neomorph>

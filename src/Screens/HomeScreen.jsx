@@ -1,5 +1,5 @@
 import React from 'react';
-import {View} from 'react-native';
+import {View,ScrollView} from 'react-native';
 import {WebView} from 'react-native-webview';
 import {Device} from '../Utils/DeviceDimensions';
 import Button, {ButtonHalfWidth} from '../Components/Button';
@@ -25,18 +25,16 @@ const HomeScreen = ({navigation}) => {
   }, []);
 
   return (
-    <View
+    <ScrollView
       style={{
-        backgroundColor: '#fff',
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
+        backgroundColor: '#fff'
       }}>
       <View
         style={{
-          flex: 0.8,
+          flex: 1,
           alignItems: 'center',
           justifyContent: 'center',
+          height: Device.height* 5/7
         }}>
         <WebView
           style={{flex: 1, width: Device.width, height: 100}}
@@ -45,16 +43,16 @@ const HomeScreen = ({navigation}) => {
       </View>
       <View
         style={{
-          flex: 0.2,
-          alignItems: 'center',
-          justifyContent: 'center',
+          flex: 1,
         }}>
         <View
           style={{
             flexDirection: 'row',
             flex: 1,
-            alignItems: 'center',
-            justifyContent: 'center',
+            marginTop: 20,
+            height: Device.height* 2/7,
+            alignItems: 'baseline',
+            justifyContent: 'space-evenly',
           }}>
           <ButtonHalfWidth
             buttonText={'Career Path Finder'}
@@ -64,7 +62,7 @@ const HomeScreen = ({navigation}) => {
           <ButtonHalfWidth buttonText={'Rank'} onPress={null} />
         </View>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 

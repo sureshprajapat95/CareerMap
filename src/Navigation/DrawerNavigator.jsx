@@ -16,6 +16,7 @@ import Terms from '../Utils/Icons/Terms';
 import HomeScreen from '../Screens/HomeScreen';
 import ProfileScreen from '../Screens/ProfileScreen';
 import {Colors} from '../Utils/Colors';
+import TabNavigator from './TabNavigator';
 
 const Drawer = createDrawerNavigator();
 
@@ -58,7 +59,7 @@ function MyDrawer() {
       })}>
       <Drawer.Screen
         name="Home"
-        component={HomeScreen}
+        component={TabNavigator}
         options={{
           drawerIcon: config => (
             <Home width="20px" height="20px" fill={Colors.primary} />
@@ -69,7 +70,7 @@ function MyDrawer() {
         name="Profile"
         component={ProfileScreen}
         options={{
-          drawerIcon: config => <Profile width="20px" height="20px" />,
+          drawerIcon: config => <Profile width="20px" height="20px" fill={Colors.primary} />,
         }}
         activeTintColor={Colors.primary}
       />
@@ -86,7 +87,7 @@ function CustomDrawerContent(props) {
           height: 150,
           marginTop: -10,
           marginBottom: 50,
-          elevation: 20
+          elevation: 20,
         }}></View>
       <DrawerItemList {...props} />
       <DrawerItem

@@ -3,6 +3,7 @@ import {Pressable, Text, TextInput} from 'react-native';
 import {Neomorph} from 'react-native-neomorph-shadows';
 import {Colors} from '../Utils/Colors';
 import {Device} from '../Utils/DeviceDimensions';
+import { PoppinsRegular } from '../Utils/Fonts';
 
 const Input = ({keyboardType, placeholder = '', customText = false}) => {
   const [isActive, setIsActive] = React.useState(false);
@@ -12,7 +13,7 @@ const Input = ({keyboardType, placeholder = '', customText = false}) => {
       style={{
         shadowRadius: 5,
         borderRadius: 35,
-        backgroundColor: '#eee',
+        backgroundColor: Colors.backgroundColor,
         width: Device.width - 50,
         height: 50,
         alignItems: 'center',
@@ -38,6 +39,7 @@ const Input = ({keyboardType, placeholder = '', customText = false}) => {
           width: '100%',
           paddingLeft: customText ? 60 : 30,
           fontSize: 18,
+          fontFamily: PoppinsRegular
         }}
         placeholder={placeholder}
         keyboardType={keyboardType}
@@ -57,7 +59,7 @@ export const PressableInput = ({placeholder = '', iconRight, onPress}) => {
         style={{
           shadowRadius: 5,
           borderRadius: 35,
-          backgroundColor: '#eee',
+          backgroundColor: Colors.backgroundColor,
           width: Device.width - 50,
           height: 50,
           flexDirection: 'row',
@@ -68,7 +70,7 @@ export const PressableInput = ({placeholder = '', iconRight, onPress}) => {
           paddingLeft: 30,
           paddingRight: 20,
         }}>
-        <Text style={{fontSize: 18}}>{placeholder}</Text>
+        <Text style={{fontSize: 18,fontFamily: PoppinsRegular}}>{placeholder}</Text>
         {iconRight}
       </Neomorph>
     </Pressable>
