@@ -4,15 +4,15 @@ import {DateTimePickerAndroid} from '@react-native-community/datetimepicker';
 import CheckBox from '@react-native-community/checkbox';
 import AppContainer from '../Components/AppContainer';
 import Input, {PressableInput} from '../Components/Input';
-import Calendar from '../Icons/Calendar';
-import ChevronRight from '../Icons/Chevrons';
+import Calendar from '../Utils/Icons/Calendar';
+import ChevronRight from '../Utils/Icons/Chevrons';
 import Button from '../Components/Button';
 import {Colors} from '../Utils/Colors';
 import {Neomorph} from 'react-native-neomorph-shadows';
-import Male from '../Icons/Male';
-import Female from '../Icons/Female';
-import Other from '../Icons/Other';
-import PointingHand from '../Icons/PointingHand';
+import Male from '../Utils/Icons/Male';
+import Female from '../Utils/Icons/Female';
+import Other from '../Utils/Icons/Other';
+import PointingHand from '../Utils/Icons/PointingHand';
 
 const INITIAL_STATE = {
   first_name: '',

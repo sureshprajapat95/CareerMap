@@ -1,6 +1,6 @@
 import * as React from "react";
 import Svg, { Path } from "react-native-svg";
-import { Colors } from "../Utils/Colors";
+import { Colors } from "../Colors";
 const Other = (props) => (
   <Svg
     width="24px"

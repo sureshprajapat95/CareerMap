@@ -1,6 +1,6 @@
 import * as React from "react";
 import Svg, { G, Path, Circle } from "react-native-svg";
-import { Colors } from "../Utils/Colors";
+import { Colors } from "../Colors";
 const Male = (props) => (
   <Svg
     id="Capa_1"

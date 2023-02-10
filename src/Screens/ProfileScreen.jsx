@@ -4,7 +4,7 @@ import {ScrollView} from 'react-native-gesture-handler';
 import AppContainer from '../Components/AppContainer';
 import Button from '../Components/Button';
 import Input, { PressableInput } from '../Components/Input';
-import ChevronRight from '../Icons/Chevrons';
+import ChevronRight from '../Utils/Icons/Chevrons';
 import {Colors} from '../Utils/Colors';
 
 const ProfileScreen = ({navigation}) => {
