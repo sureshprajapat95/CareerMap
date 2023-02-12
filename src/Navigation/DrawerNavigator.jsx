@@ -11,10 +11,7 @@ import Hamburger from '../Utils/Icons/Hamburger';
 import Home from '../Utils/Icons/Home';
 import Info from '../Utils/Icons/Info';
 import Privacy from '../Utils/Icons/Privacy';
-import Profile from '../Utils/Icons/Profile';
 import Terms from '../Utils/Icons/Terms';
-import HomeScreen from '../Screens/HomeScreen';
-import ProfileScreen from '../Screens/ProfileScreen';
 import {Colors} from '../Utils/Colors';
 import TabNavigator from './TabNavigator';
 
@@ -46,7 +43,7 @@ function MyDrawer() {
           elevation: 50,
           shadowOpacity: 50,
         },
-        headerShown: true,
+        headerShown: false,
         headerTintColor: '#fff',
         headerTitleAlign: 'center',
         headerStyle: {backgroundColor: Colors.primary},
@@ -58,21 +55,14 @@ function MyDrawer() {
         drawerLabelStyle: {marginLeft: -20},
       })}>
       <Drawer.Screen
-        name="Home"
+        name="TabHome"
         component={TabNavigator}
         options={{
           drawerIcon: config => (
             <Home width="20px" height="20px" fill={Colors.primary} />
           ),
+          drawerItemStyle: {display: 'none'},
         }}
-      />
-      <Drawer.Screen
-        name="Profile"
-        component={ProfileScreen}
-        options={{
-          drawerIcon: config => <Profile width="20px" height="20px" fill={Colors.primary} />,
-        }}
-        activeTintColor={Colors.primary}
       />
     </Drawer.Navigator>
   );
@@ -91,8 +81,23 @@ function CustomDrawerContent(props) {
         }}></View>
       <DrawerItemList {...props} />
       <DrawerItem
+        label="Profile"
+        onPress={() => {
+          props.navigation.navigate('Profile');
+        }}
+        icon={() => (
+          <Privacy width="20px" height="20px" fill={Colors.primary} />
+        )}
+        labelStyle={{marginLeft: -20}}
+      />
+      <DrawerItem
         label="Privacy Policy"
-        onPress={() => {}}
+        onPress={() => {
+          props.navigation.navigate('webopener', {
+            uri: 'https://reactnavigation.org/docs/params/',
+            title: 'Privacy Policy',
+          });
+        }}
         icon={() => (
           <Privacy width="20px" height="20px" fill={Colors.primary} />
         )}
@@ -100,7 +105,12 @@ function CustomDrawerContent(props) {
       />
       <DrawerItem
         label="Terms & Conditions"
-        onPress={null}
+        onPress={() => {
+          props.navigation.navigate('webopener', {
+            uri: 'https://reactnavigation.org/docs/params/',
+            title: 'Terms & Conditions',
+          });
+        }}
         icon={() => <Terms width="20px" height="20px" />}
         labelStyle={{marginLeft: -20}}
       />

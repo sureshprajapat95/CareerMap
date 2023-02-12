@@ -1,68 +1,69 @@
 import React from 'react';
-import {View,ScrollView} from 'react-native';
+import {View, ScrollView} from 'react-native';
 import {WebView} from 'react-native-webview';
 import {Device} from '../Utils/DeviceDimensions';
-import Button, {ButtonHalfWidth} from '../Components/Button';
+import {ButtonHalfWidth} from '../Components/Button';
+import AppHeader from '../Components/AppHeader';
+import Hamburger from '../Utils/Icons/Hamburger';
+import Login from '../Utils/Icons/Login';
+import { Colors } from '../Utils/Colors';
 
 const HomeScreen = ({navigation}) => {
-  React.useEffect(() => {
-    navigation.setOptions({
-      headerRight: () => (
-        <Button
-          onPress={() => navigation.navigate('login')}
-          buttonStyle={{
-            marginRight: 20,
-            width: 80,
-            height: 35,
-            borderRadius: 10,
-          }}
-          textStyle={{
-            textAlign: 'center',
-          }}
-          buttonText={'Sign In'}></Button>
-      ),
-    });
-  }, []);
-
   return (
-    <ScrollView
-      style={{
-        backgroundColor: '#fff'
-      }}>
-      <View
+    <>
+      <AppHeader
+      style={{backgroundColor: Colors.light}}
+      middleText={'Home'}
+        left={{
+          show: true,
+          Icon: Hamburger,
+          click: () => navigation.openDrawer(),
+        }}
+        right={{
+          show: true,
+          Icon: Login,
+          click: () => navigation.navigate('login'),
+        }}
+      />
+      <ScrollView
         style={{
-          flex: 1,
-          alignItems: 'center',
-          justifyContent: 'center',
-          height: Device.height* 5/7
-        }}>
-        <WebView
-          style={{flex: 1, width: Device.width, height: 100}}
-          source={{uri: 'https://careermaps.live?caller=app'}}
-        />
-      </View>
-      <View
-        style={{
-          flex: 1,
+          backgroundColor: '#fff',
         }}>
         <View
           style={{
-            flexDirection: 'row',
             flex: 1,
-            marginTop: 20,
-            height: Device.height* 2/7,
-            alignItems: 'baseline',
-            justifyContent: 'space-evenly',
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: (Device.height * 5) / 7,
           }}>
-          <ButtonHalfWidth
-            buttonText={'Career Path Finder'}
-            onPress={null}
-            style={{marginRight: 10}}
+          <WebView
+            style={{flex: 1, width: Device.width, height: 100}}
+            source={{uri: 'https://careermaps.live?caller=app'}}
           />
-          <ButtonHalfWidth buttonText={'Rank'} onPress={null} />
         </View>
-      </View>
-    </ScrollView>
+        <View
+          style={{
+            flex: 1,
+          }}>
+          <View
+            style={{
+              flexDirection: 'row',
+              flex: 1,
+              marginTop: 20,
+              height: (Device.height * 2) / 7,
+              alignItems: 'baseline',
+              justifyContent: 'space-evenly',
+            }}>
+            <ButtonHalfWidth
+              buttonText={'Career Path Finder'}
+              onPress={null}
+              style={{marginRight: 10}}
+            />
+            <ButtonHalfWidth buttonText={'Rank'} onPress={null} />
+          </View>
+        </View>
+      </ScrollView>
+    </>
   );
 };
 

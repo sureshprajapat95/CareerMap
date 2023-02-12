@@ -6,5 +6,7 @@ export const Colors = {
     lightdark: '#aaa',
     lightdark1: '#eee',
     dark: '#525252',
-    backgroundColor: '#eff0f9'
+    backgroundColor: '#eff0f9',
+    transparent: '#fff',
+    black: '#000',
 }
