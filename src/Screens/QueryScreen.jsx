@@ -9,7 +9,6 @@ import {Device} from '../Utils/DeviceDimensions';
 import {Fonts} from '../Utils/Fonts';
 import Add from '../Utils/Icons/Add';
 import Hamburger from '../Utils/Icons/Hamburger';
-import Login from '../Utils/Icons/Login';
 import Query from '../Utils/Icons/Query';
 
 const QueryScreen = ({navigation}) => {
@@ -43,11 +42,11 @@ const QueryScreen = ({navigation}) => {
           <Neomorph
             inner={false}
             style={{
-              shadowRadius: 2,
+              shadowRadius: 5,
               borderRadius: 15,
               backgroundColor: Colors.backgroundColor,
               width: Device.width - 50,
-              height: 200,
+              height: 160,
               position: 'relative',
               padding: 15,
               paddingBottom: 50,
@@ -58,18 +57,18 @@ const QueryScreen = ({navigation}) => {
                 flexDirection: 'row',
                 justifyContent: 'space-between',
               }}>
-              <Text>Query</Text>
-              <Text>04 Nov 2022</Text>
+              <Text style={{fontFamily: Fonts.SemiBold,fontSize: 17}}>Query</Text>
+              <Text style={{fontFamily: Fonts.SemiBold,fontSize: 17}}>04 Nov 2022</Text>
             </View>
-            <View style={{flexDirection: 'row'}}>
+            <View style={{flexDirection: 'row',paddingTop: 20}}>
               <View>
-                <Query width="35px" height="35px" fill={Colors.primary} />
+                <Query width="45px" height="45px" fill={Colors.primary} />
               </View>
               <View style={{paddingLeft: 20, flex: 1}}>
                 <View style={{flex: 1}}>
                   <View style={{flexDirection: 'row'}}>
-                    <Text style={{flex: 1, flexWrap: 'wrap'}}>
-                      You miss fdddddd dddddddd You miss fdd iss fdd
+                    <Text style={{flex: 1, flexWrap: 'wrap',fontFamily: Fonts.Medium,overflow: 'hidden'}} numberOfLines={2}>
+                      You miss fdddddd dddddddd You miss fdd iss fdd  fdddddd dddddddd You miss fdd  fdddddd dddddddd You miss
                     </Text>
                   </View>
                   <Text style={{fontSize: 18, fontFamily: Fonts.Regular}}>
@@ -84,11 +83,11 @@ const QueryScreen = ({navigation}) => {
           <Neomorph
             inner={false}
             style={{
-              shadowRadius: 2,
+              shadowRadius: 5,
               borderRadius: 15,
               backgroundColor: Colors.backgroundColor,
               width: Device.width - 50,
-              height: 200,
+              height: 160,
               position: 'relative',
               padding: 15,
               paddingBottom: 50,
@@ -99,18 +98,18 @@ const QueryScreen = ({navigation}) => {
                 flexDirection: 'row',
                 justifyContent: 'space-between',
               }}>
-              <Text>Query</Text>
-              <Text>04 Nov 2022</Text>
+              <Text style={{fontFamily: Fonts.SemiBold,fontSize: 17}}>Query</Text>
+              <Text style={{fontFamily: Fonts.SemiBold,fontSize: 17}}>04 Nov 2022</Text>
             </View>
-            <View style={{flexDirection: 'row'}}>
+            <View style={{flexDirection: 'row',paddingTop: 20}}>
               <View>
-                <Query width="35px" height="35px" fill={Colors.primary} />
+                <Query width="45px" height="45px" fill={Colors.primary} />
               </View>
               <View style={{paddingLeft: 20, flex: 1}}>
                 <View style={{flex: 1}}>
                   <View style={{flexDirection: 'row'}}>
-                    <Text style={{flex: 1, flexWrap: 'wrap'}}>
-                      You miss fdddddd dddddddd You miss fdd iss fdd
+                    <Text style={{flex: 1, flexWrap: 'wrap',fontFamily: Fonts.Medium,overflow: 'hidden'}} numberOfLines={2}>
+                      You miss fdddddd dddddddd You miss fdd iss fdd  fdddddd dddddddd You miss fdd  fdddddd dddddddd You miss
                     </Text>
                   </View>
                   <Text style={{fontSize: 18, fontFamily: Fonts.Regular}}>
@@ -125,11 +124,11 @@ const QueryScreen = ({navigation}) => {
           <Neomorph
             inner={false}
             style={{
-              shadowRadius: 2,
+              shadowRadius: 5,
               borderRadius: 15,
               backgroundColor: Colors.backgroundColor,
               width: Device.width - 50,
-              height: 200,
+              height: 160,
               position: 'relative',
               padding: 15,
               paddingBottom: 50,
@@ -140,18 +139,18 @@ const QueryScreen = ({navigation}) => {
                 flexDirection: 'row',
                 justifyContent: 'space-between',
               }}>
-              <Text>Query</Text>
-              <Text>04 Nov 2022</Text>
+              <Text style={{fontFamily: Fonts.SemiBold,fontSize: 17}}>Query</Text>
+              <Text style={{fontFamily: Fonts.SemiBold,fontSize: 17}}>04 Nov 2022</Text>
             </View>
-            <View style={{flexDirection: 'row'}}>
+            <View style={{flexDirection: 'row',paddingTop: 20}}>
               <View>
-                <Query width="35px" height="35px" fill={Colors.primary} />
+                <Query width="45px" height="45px" fill={Colors.primary} />
               </View>
               <View style={{paddingLeft: 20, flex: 1}}>
                 <View style={{flex: 1}}>
                   <View style={{flexDirection: 'row'}}>
-                    <Text style={{flex: 1, flexWrap: 'wrap'}}>
-                      You miss fdddddd dddddddd You miss fdd iss fdd
+                    <Text style={{flex: 1, flexWrap: 'wrap',fontFamily: Fonts.Medium,overflow: 'hidden'}} numberOfLines={2}>
+                      You miss fdddddd dddddddd You miss fdd iss fdd  fdddddd dddddddd You miss fdd  fdddddd dddddddd You miss
                     </Text>
                   </View>
                   <Text style={{fontSize: 18, fontFamily: Fonts.Regular}}>
@@ -166,11 +165,11 @@ const QueryScreen = ({navigation}) => {
           <Neomorph
             inner={false}
             style={{
-              shadowRadius: 2,
+              shadowRadius: 5,
               borderRadius: 15,
               backgroundColor: Colors.backgroundColor,
               width: Device.width - 50,
-              height: 200,
+              height: 160,
               position: 'relative',
               padding: 15,
               paddingBottom: 50,
@@ -181,18 +180,59 @@ const QueryScreen = ({navigation}) => {
                 flexDirection: 'row',
                 justifyContent: 'space-between',
               }}>
-              <Text>Query</Text>
-              <Text>04 Nov 2022</Text>
+              <Text style={{fontFamily: Fonts.SemiBold,fontSize: 17}}>Query</Text>
+              <Text style={{fontFamily: Fonts.SemiBold,fontSize: 17}}>04 Nov 2022</Text>
             </View>
-            <View style={{flexDirection: 'row'}}>
+            <View style={{flexDirection: 'row',paddingTop: 20}}>
               <View>
-                <Query width="35px" height="35px" fill={Colors.primary} />
+                <Query width="45px" height="45px" fill={Colors.primary} />
               </View>
               <View style={{paddingLeft: 20, flex: 1}}>
                 <View style={{flex: 1}}>
                   <View style={{flexDirection: 'row'}}>
-                    <Text style={{flex: 1, flexWrap: 'wrap'}}>
-                      You miss fdddddd dddddddd You miss fdd iss fdd
+                    <Text style={{flex: 1, flexWrap: 'wrap',fontFamily: Fonts.Medium,overflow: 'hidden'}} numberOfLines={2}>
+                      You miss fdddddd dddddddd You miss fdd iss fdd  fdddddd dddddddd You miss fdd  fdddddd dddddddd You miss
+                    </Text>
+                  </View>
+                  <Text style={{fontSize: 18, fontFamily: Fonts.Regular}}>
+                    <Text style={{fontFamily: Fonts.Bold}}>Status: </Text>Open
+                  </Text>
+                </View>
+              </View>
+            </View>
+          </Neomorph>
+        </View>
+        <View style={{marginTop: 25}}>
+          <Neomorph
+            inner={false}
+            style={{
+              shadowRadius: 5,
+              borderRadius: 15,
+              backgroundColor: Colors.backgroundColor,
+              width: Device.width - 50,
+              height: 160,
+              position: 'relative',
+              padding: 15,
+              paddingBottom: 50,
+            }}>
+            <View
+              style={{
+                flex: 1,
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+              }}>
+              <Text style={{fontFamily: Fonts.SemiBold,fontSize: 17}}>Query</Text>
+              <Text style={{fontFamily: Fonts.SemiBold,fontSize: 17}}>04 Nov 2022</Text>
+            </View>
+            <View style={{flexDirection: 'row',paddingTop: 20}}>
+              <View>
+                <Query width="45px" height="45px" fill={Colors.primary} />
+              </View>
+              <View style={{paddingLeft: 20, flex: 1}}>
+                <View style={{flex: 1}}>
+                  <View style={{flexDirection: 'row'}}>
+                    <Text style={{flex: 1, flexWrap: 'wrap',fontFamily: Fonts.Medium,overflow: 'hidden'}} numberOfLines={2}>
+                      You miss fdddddd dddddddd You miss fdd iss fdd  fdddddd dddddddd You miss fdd  fdddddd dddddddd You miss
                     </Text>
                   </View>
                   <Text style={{fontSize: 18, fontFamily: Fonts.Regular}}>
