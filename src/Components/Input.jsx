@@ -5,7 +5,7 @@ import {Colors} from '../Utils/Colors';
 import {Device} from '../Utils/DeviceDimensions';
 import {PoppinsRegular} from '../Utils/Fonts';
 
-const Input = ({keyboardType, placeholder = '', customText = false}) => {
+const Input = ({keyboardType, placeholder = '', customText = false,style={}}) => {
   const [isActive, setIsActive] = React.useState(false);
   return (
     <Neomorph
@@ -20,6 +20,7 @@ const Input = ({keyboardType, placeholder = '', customText = false}) => {
         justifyContent: 'center',
         position: 'relative',
         marginBottom: 20,
+        ...style
       }}>
       {customText && (
         <Text
@@ -51,11 +52,14 @@ const Input = ({keyboardType, placeholder = '', customText = false}) => {
 };
 export default Input;
 
-export const PressableInput = ({placeholder = '', iconRight, onPress}) => {
+export const PressableInput = ({placeholder = '', iconRight, onPress,neomorphStyle}) => {
+  const [isActive, setIsActive] = React.useState(false);
   return (
-    <Pressable onPress={onPress}>
+    <Pressable onPress={onPress} 
+    onPressIn={() => setIsActive(prev => !prev)}
+    onPressOut={() => setIsActive(prev => !prev)}>
       <Neomorph
-        inner
+        inner={isActive}
         style={{
           shadowRadius: 5,
           borderRadius: 35,
@@ -69,6 +73,7 @@ export const PressableInput = ({placeholder = '', iconRight, onPress}) => {
           marginBottom: 20,
           paddingLeft: 30,
           paddingRight: 20,
+          ...neomorphStyle
         }}>
         <Text style={{fontSize: 18, fontFamily: PoppinsRegular}}>
           {placeholder}
@@ -117,7 +122,7 @@ export const TextArea = ({
           width: '100%',
           paddingLeft: customText ? 60 : 30,
           fontSize: 18,
-          fontFamily: PoppinsRegular,
+          fontFamily: PoppinsRegular,textAlignVertical: 'top'
         }}
         placeholder={placeholder}
         onFocus={() => setIsActive(prev => !prev)}

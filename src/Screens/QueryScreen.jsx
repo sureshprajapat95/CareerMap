@@ -1,19 +1,45 @@
+import {useFocusEffect} from '@react-navigation/native';
 import React from 'react';
-import {Text, ScrollView, View} from 'react-native';
-import {Neomorph} from 'react-native-neomorph-shadows';
+import {Text,ScrollView, View} from 'react-native';
 import AppContainer from '../Components/AppContainer';
 import AppHeader from '../Components/AppHeader';
 import Button from '../Components/Button';
+import QueryBox from '../Components/QueryBox';
+import QueryDetails from '../Components/QueryDetails';
 import {Colors} from '../Utils/Colors';
 import {Device} from '../Utils/DeviceDimensions';
 import {Fonts} from '../Utils/Fonts';
 import Add from '../Utils/Icons/Add';
 import Hamburger from '../Utils/Icons/Hamburger';
-import Query from '../Utils/Icons/Query';
+import Loader from '../Utils/Loader';
 
 const QueryScreen = ({navigation}) => {
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [showDetails, setShowDetails] = React.useState(false);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      /* navigation.navigate('login') */
+    }, []),
+  );
+
+  const openQuery = id => {
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+      setShowDetails(true);
+    }, 1500);
+  };
+
+  return <><Text>You are not logged in</Text></>
+
   return (
-    <ScrollView>
+    <>
+      <Loader visible={isLoading} />
+      <QueryDetails
+        visible={showDetails}
+        onClose={() => setShowDetails(false)}
+      />
       <AppHeader
         middleText={'Query'}
         left={{
@@ -25,226 +51,30 @@ const QueryScreen = ({navigation}) => {
           show: false,
         }}
       />
-      <AppContainer>
-        <View style={{alignItems: 'flex-end'}}>
-          <Button
-            buttonText={'Add'}
-            buttonStyle={{
-              width: Device.width / 3,
-              backgroundColor: Colors.backgroundColor,
-            }}
-            textStyle={{color: Colors.primary, fontFamily: Fonts.SemiBold,paddingLeft: 10}}
-            icon={<Add fill={Colors.primary} />}
-            onPress={()=> navigation.navigate('addquery')}
-          />
-        </View>
-        <View style={{marginTop: 25}}>
-          <Neomorph
-            inner={false}
-            style={{
-              shadowRadius: 5,
-              borderRadius: 15,
-              backgroundColor: Colors.backgroundColor,
-              width: Device.width - 50,
-              height: 160,
-              position: 'relative',
-              padding: 15,
-              paddingBottom: 50,
-            }}>
-            <View
-              style={{
-                flex: 1,
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-              }}>
-              <Text style={{fontFamily: Fonts.SemiBold,fontSize: 17}}>Query</Text>
-              <Text style={{fontFamily: Fonts.SemiBold,fontSize: 17}}>04 Nov 2022</Text>
-            </View>
-            <View style={{flexDirection: 'row',paddingTop: 20}}>
-              <View>
-                <Query width="45px" height="45px" fill={Colors.primary} />
-              </View>
-              <View style={{paddingLeft: 20, flex: 1}}>
-                <View style={{flex: 1}}>
-                  <View style={{flexDirection: 'row'}}>
-                    <Text style={{flex: 1, flexWrap: 'wrap',fontFamily: Fonts.Medium,overflow: 'hidden'}} numberOfLines={2}>
-                      You miss fdddddd dddddddd You miss fdd iss fdd  fdddddd dddddddd You miss fdd  fdddddd dddddddd You miss
-                    </Text>
-                  </View>
-                  <Text style={{fontSize: 18, fontFamily: Fonts.Regular}}>
-                    <Text style={{fontFamily: Fonts.Bold}}>Status: </Text>Open
-                  </Text>
-                </View>
-              </View>
-            </View>
-          </Neomorph>
-        </View>
-        <View style={{marginTop: 25}}>
-          <Neomorph
-            inner={false}
-            style={{
-              shadowRadius: 5,
-              borderRadius: 15,
-              backgroundColor: Colors.backgroundColor,
-              width: Device.width - 50,
-              height: 160,
-              position: 'relative',
-              padding: 15,
-              paddingBottom: 50,
-            }}>
-            <View
-              style={{
-                flex: 1,
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-              }}>
-              <Text style={{fontFamily: Fonts.SemiBold,fontSize: 17}}>Query</Text>
-              <Text style={{fontFamily: Fonts.SemiBold,fontSize: 17}}>04 Nov 2022</Text>
-            </View>
-            <View style={{flexDirection: 'row',paddingTop: 20}}>
-              <View>
-                <Query width="45px" height="45px" fill={Colors.primary} />
-              </View>
-              <View style={{paddingLeft: 20, flex: 1}}>
-                <View style={{flex: 1}}>
-                  <View style={{flexDirection: 'row'}}>
-                    <Text style={{flex: 1, flexWrap: 'wrap',fontFamily: Fonts.Medium,overflow: 'hidden'}} numberOfLines={2}>
-                      You miss fdddddd dddddddd You miss fdd iss fdd  fdddddd dddddddd You miss fdd  fdddddd dddddddd You miss
-                    </Text>
-                  </View>
-                  <Text style={{fontSize: 18, fontFamily: Fonts.Regular}}>
-                    <Text style={{fontFamily: Fonts.Bold}}>Status: </Text>Open
-                  </Text>
-                </View>
-              </View>
-            </View>
-          </Neomorph>
-        </View>
-        <View style={{marginTop: 25}}>
-          <Neomorph
-            inner={false}
-            style={{
-              shadowRadius: 5,
-              borderRadius: 15,
-              backgroundColor: Colors.backgroundColor,
-              width: Device.width - 50,
-              height: 160,
-              position: 'relative',
-              padding: 15,
-              paddingBottom: 50,
-            }}>
-            <View
-              style={{
-                flex: 1,
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-              }}>
-              <Text style={{fontFamily: Fonts.SemiBold,fontSize: 17}}>Query</Text>
-              <Text style={{fontFamily: Fonts.SemiBold,fontSize: 17}}>04 Nov 2022</Text>
-            </View>
-            <View style={{flexDirection: 'row',paddingTop: 20}}>
-              <View>
-                <Query width="45px" height="45px" fill={Colors.primary} />
-              </View>
-              <View style={{paddingLeft: 20, flex: 1}}>
-                <View style={{flex: 1}}>
-                  <View style={{flexDirection: 'row'}}>
-                    <Text style={{flex: 1, flexWrap: 'wrap',fontFamily: Fonts.Medium,overflow: 'hidden'}} numberOfLines={2}>
-                      You miss fdddddd dddddddd You miss fdd iss fdd  fdddddd dddddddd You miss fdd  fdddddd dddddddd You miss
-                    </Text>
-                  </View>
-                  <Text style={{fontSize: 18, fontFamily: Fonts.Regular}}>
-                    <Text style={{fontFamily: Fonts.Bold}}>Status: </Text>Open
-                  </Text>
-                </View>
-              </View>
-            </View>
-          </Neomorph>
-        </View>
-        <View style={{marginTop: 25}}>
-          <Neomorph
-            inner={false}
-            style={{
-              shadowRadius: 5,
-              borderRadius: 15,
-              backgroundColor: Colors.backgroundColor,
-              width: Device.width - 50,
-              height: 160,
-              position: 'relative',
-              padding: 15,
-              paddingBottom: 50,
-            }}>
-            <View
-              style={{
-                flex: 1,
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-              }}>
-              <Text style={{fontFamily: Fonts.SemiBold,fontSize: 17}}>Query</Text>
-              <Text style={{fontFamily: Fonts.SemiBold,fontSize: 17}}>04 Nov 2022</Text>
-            </View>
-            <View style={{flexDirection: 'row',paddingTop: 20}}>
-              <View>
-                <Query width="45px" height="45px" fill={Colors.primary} />
-              </View>
-              <View style={{paddingLeft: 20, flex: 1}}>
-                <View style={{flex: 1}}>
-                  <View style={{flexDirection: 'row'}}>
-                    <Text style={{flex: 1, flexWrap: 'wrap',fontFamily: Fonts.Medium,overflow: 'hidden'}} numberOfLines={2}>
-                      You miss fdddddd dddddddd You miss fdd iss fdd  fdddddd dddddddd You miss fdd  fdddddd dddddddd You miss
-                    </Text>
-                  </View>
-                  <Text style={{fontSize: 18, fontFamily: Fonts.Regular}}>
-                    <Text style={{fontFamily: Fonts.Bold}}>Status: </Text>Open
-                  </Text>
-                </View>
-              </View>
-            </View>
-          </Neomorph>
-        </View>
-        <View style={{marginTop: 25}}>
-          <Neomorph
-            inner={false}
-            style={{
-              shadowRadius: 5,
-              borderRadius: 15,
-              backgroundColor: Colors.backgroundColor,
-              width: Device.width - 50,
-              height: 160,
-              position: 'relative',
-              padding: 15,
-              paddingBottom: 50,
-            }}>
-            <View
-              style={{
-                flex: 1,
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-              }}>
-              <Text style={{fontFamily: Fonts.SemiBold,fontSize: 17}}>Query</Text>
-              <Text style={{fontFamily: Fonts.SemiBold,fontSize: 17}}>04 Nov 2022</Text>
-            </View>
-            <View style={{flexDirection: 'row',paddingTop: 20}}>
-              <View>
-                <Query width="45px" height="45px" fill={Colors.primary} />
-              </View>
-              <View style={{paddingLeft: 20, flex: 1}}>
-                <View style={{flex: 1}}>
-                  <View style={{flexDirection: 'row'}}>
-                    <Text style={{flex: 1, flexWrap: 'wrap',fontFamily: Fonts.Medium,overflow: 'hidden'}} numberOfLines={2}>
-                      You miss fdddddd dddddddd You miss fdd iss fdd  fdddddd dddddddd You miss fdd  fdddddd dddddddd You miss
-                    </Text>
-                  </View>
-                  <Text style={{fontSize: 18, fontFamily: Fonts.Regular}}>
-                    <Text style={{fontFamily: Fonts.Bold}}>Status: </Text>Open
-                  </Text>
-                </View>
-              </View>
-            </View>
-          </Neomorph>
-        </View>
-      </AppContainer>
-    </ScrollView>
+      <ScrollView>
+        <AppContainer>
+          <View style={{alignItems: 'flex-end', paddingTop: 15}}>
+            <Button
+              buttonText={'Add'}
+              buttonStyle={{
+                width: Device.width / 3,
+                backgroundColor: Colors.backgroundColor,
+              }}
+              textStyle={{
+                color: Colors.primary,
+                fontFamily: Fonts.SemiBold,
+                paddingLeft: 10,
+              }}
+              icon={<Add fill={Colors.primary} />}
+              onPress={() => navigation.navigate('addquery')}
+            />
+          </View>
+          <QueryBox status={'Open'} onPress={() => openQuery()} />
+          <QueryBox status={'Closed'} onPress={() => openQuery()} />
+          <QueryBox status={'Open'} onPress={() => openQuery()} />
+        </AppContainer>
+      </ScrollView>
+    </>
   );
 };
 

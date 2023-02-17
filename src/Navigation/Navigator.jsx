@@ -4,6 +4,7 @@ import React from 'react';
 import AddQueryScreen from '../Screens/AddQueryScreen';
 import LoginScreen from '../Screens/LoginScreen';
 import OTPScreen from '../Screens/OTPScreen';
+import PaymentScreen from '../Screens/PaymentScreen';
 import SignUpScreen from '../Screens/SignUpScreen';
 import UrlOpenerScreen from '../Screens/UrlOpenerScreen';
 import DrawerNavigator from './DrawerNavigator';
@@ -34,6 +35,7 @@ const Navigator = () => {
         <Stack.Screen name="signup" component={SignUpScreen} />
         <Stack.Screen name="otp" component={OTPScreen} />
         <Stack.Screen name="webopener" component={UrlOpenerScreen} />
+        <Stack.Screen name="payment" component={PaymentScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

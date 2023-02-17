@@ -24,9 +24,7 @@ const ProfileScreen = ({navigation}) => {
           click: () => navigation.openDrawer(),
         }}
         right={{
-          show: true,
-          Icon: Login,
-          click: () => navigation.navigate('Query'),
+          show: false,
         }}
       />
       <AppContainer>

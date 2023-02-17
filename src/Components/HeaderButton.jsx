@@ -23,7 +23,7 @@ const HeaderButton = ({Icon, onPress}) => {
           justifyContent: 'center',
           position: 'relative',
         }}>
-        <Icon />
+        <Icon fill={Colors.light} />
       </Neomorph>
     </Pressable>
   );

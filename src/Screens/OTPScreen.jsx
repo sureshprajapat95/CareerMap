@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, ScrollView} from 'react-native';
+import {StyleSheet, View, ScrollView} from 'react-native';
 import OTPInputView from '@twotalltotems/react-native-otp-input';
 import {Colors} from '../Utils/Colors';
 import AppContainer from '../Components/AppContainer';
@@ -36,9 +36,9 @@ const OTPScreen = ({navigation}) => {
       />
       <ScrollView>
         <AppContainer>
-          <OTP width={Device.width - 50} height={Device.width - 50} />
+          <View style={{alignItems: 'center'}}><OTP width={Device.width /1.5} height={Device.width /1.5} /></View>
           <OTPInputView
-            style={{width: '100%', height: 200}}
+            style={{width: '100%', height: 100}}
             pinCount={6}
             onCodeChanged={code => {
               setStates(prev => {

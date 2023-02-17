@@ -37,6 +37,7 @@ const AppHeader = ({left,middleText='', right,style={}}) => {
             fontSize: 20,
             fontFamily: Fonts.SemiBold,
             textAlign: 'center',
+            color: Colors.light
           }}>
           {middleText}
         </Text>

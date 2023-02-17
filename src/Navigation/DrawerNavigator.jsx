@@ -5,7 +5,7 @@ import {
   DrawerItemList,
 } from '@react-navigation/drawer';
 import React from 'react';
-import {View} from 'react-native';
+import {Text, View} from 'react-native';
 import Button from '../Components/Button';
 import Hamburger from '../Utils/Icons/Hamburger';
 import Home from '../Utils/Icons/Home';
@@ -14,6 +14,9 @@ import Privacy from '../Utils/Icons/Privacy';
 import Terms from '../Utils/Icons/Terms';
 import {Colors} from '../Utils/Colors';
 import TabNavigator from './TabNavigator';
+import User from '../Utils/Icons/User';
+import {Fonts} from '../Utils/Fonts';
+import Badge from '../Components/Badge';
 
 const Drawer = createDrawerNavigator();
 
@@ -73,12 +76,29 @@ function CustomDrawerContent(props) {
     <DrawerContentScrollView {...props}>
       <View
         style={{
-          backgroundColor: Colors.primary,
+          backgroundColor: Colors.primaryAlfa,
           height: 150,
           marginTop: -10,
           marginBottom: 50,
-          elevation: 20,
-        }}></View>
+          elevation: 5,
+          justifyContent: 'flex-end',
+          paddingBottom: 30,
+          paddingHorizontal: 20,
+          borderBottomEndRadius: 40,
+          borderBottomLeftRadius: 40
+        }}>
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <View>
+            <User width="70px" height="70px" />
+          </View>
+          <View style={{paddingLeft: 20}}>
+            <Text style={{fontFamily: Fonts.Medium, fontSize: 18}}>
+              Welcome, Glory
+            </Text>
+            <Badge title={'Paid Member'} />
+          </View>
+        </View>
+      </View>
       <DrawerItemList {...props} />
       <DrawerItem
         label="Profile"
@@ -94,7 +114,7 @@ function CustomDrawerContent(props) {
         label="Privacy Policy"
         onPress={() => {
           props.navigation.navigate('webopener', {
-            uri: 'https://reactnavigation.org/docs/params/',
+            uri: 'https://careermaps.live/privacy-policy',
             title: 'Privacy Policy',
           });
         }}
@@ -107,7 +127,7 @@ function CustomDrawerContent(props) {
         label="Terms & Conditions"
         onPress={() => {
           props.navigation.navigate('webopener', {
-            uri: 'https://reactnavigation.org/docs/params/',
+            uri: 'https://careermaps.live/terms-conditions',
             title: 'Terms & Conditions',
           });
         }}

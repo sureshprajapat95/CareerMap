@@ -11,11 +11,12 @@ import History from '../../History';
 import ProfileScreen from '../Screens/ProfileScreen';
 import Profile from '../Utils/Icons/Profile';
 import TabButton from './Tabbutton';
+import HistoryScreen from '../Screens/HistoryScreen';
 
 const tabsData = [
   {route: 'Home', label: 'Home', icon: Home, component: HomeScreen},
   {route: 'Query', label: 'Query', icon: Query, component: QueryScreen},
-  {route: 'History', label: 'History', icon: History, component: HomeScreen},
+  {route: 'History', label: 'History', icon: History, component: HistoryScreen},
   {
     route: 'Profile',
     label: 'Profile',
