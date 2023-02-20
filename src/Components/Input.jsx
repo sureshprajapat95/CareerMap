@@ -5,7 +5,7 @@ import {Colors} from '../Utils/Colors';
 import {Device} from '../Utils/DeviceDimensions';
 import {PoppinsRegular} from '../Utils/Fonts';
 
-const Input = ({keyboardType, placeholder = '', customText = false,style={}}) => {
+const Input = ({value='',keyboardType, placeholder = '', customText = false,style={},onChangeText}) => {
   const [isActive, setIsActive] = React.useState(false);
   return (
     <Neomorph
@@ -43,9 +43,11 @@ const Input = ({keyboardType, placeholder = '', customText = false,style={}}) =>
           fontFamily: PoppinsRegular,
         }}
         placeholder={placeholder}
+        value={value}
         keyboardType={keyboardType}
         onFocus={() => setIsActive(prev => !prev)}
         onBlur={() => setIsActive(prev => !prev)}
+        onChangeText={onChangeText}
       />
     </Neomorph>
   );

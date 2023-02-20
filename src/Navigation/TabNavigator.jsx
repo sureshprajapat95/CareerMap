@@ -1,27 +1,26 @@
 import React from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import * as Animatable from 'react-native-animatable';
 import QueryScreen from '../Screens/QueryScreen';
 import HomeScreen from '../Screens/HomeScreen';
 import Home from '../Utils/Icons/Home';
 import {Colors} from '../Utils/Colors';
 import Query from '../Utils/Icons/Query';
 import History from '../../History';
-import ProfileScreen from '../Screens/ProfileScreen';
-import Profile from '../Utils/Icons/Profile';
 import TabButton from './Tabbutton';
 import HistoryScreen from '../Screens/HistoryScreen';
+import PaymentScreen from '../Screens/PaymentScreen';
+import Rupee from '../Utils/Icons/Rupee';
 
 const tabsData = [
   {route: 'Home', label: 'Home', icon: Home, component: HomeScreen},
   {route: 'Query', label: 'Query', icon: Query, component: QueryScreen},
   {route: 'History', label: 'History', icon: History, component: HistoryScreen},
   {
-    route: 'Profile',
-    label: 'Profile',
-    icon: Profile,
-    component: ProfileScreen,
+    route: 'payment',
+    label: 'Plans',
+    icon: Rupee,
+    component: PaymentScreen,
   },
 ];
 

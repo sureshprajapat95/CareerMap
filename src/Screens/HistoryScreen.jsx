@@ -1,27 +1,19 @@
 import React from 'react';
 import {ScrollView, Text, View} from 'react-native';
 import AppContainer from '../Components/AppContainer';
-import AppHeader from '../Components/AppHeader';
 import Button from '../Components/Button';
+import TabHeader from '../Components/TabHeader';
 import {Colors} from '../Utils/Colors';
 import {Device} from '../Utils/DeviceDimensions';
 import {Fonts} from '../Utils/Fonts';
-import Hamburger from '../Utils/Icons/Hamburger';
 import History from '../Utils/Illustrations/History';
 
 const HistoryScreen = ({navigation}) => {
   return (
     <>
-      <AppHeader
-        middleText={'History'}
-        left={{
-          show: true,
-          Icon: Hamburger,
-          click: () => navigation.openDrawer(),
-        }}
-        right={{
-          show: false,
-        }}
+      <TabHeader
+        leftClick={() => navigation.openDrawer()}
+        navigation={navigation}
       />
       <ScrollView>
         <AppContainer>
@@ -165,7 +157,15 @@ const HistoryScreen = ({navigation}) => {
                 continue using all the features. Click the button below to buy a
                 plan.{' '}
               </Text>
-              <Button buttonText={'Buy Now'} buttonStyle={{width: Device.width / 2}} onPress={()=> navigation.navigate('payment')} />
+              <Button
+                buttonText={'Buy Now'}
+                buttonStyle={{
+                  shadowRadius: 2,
+                  width: Device.width / 3,
+                  height: 35,
+                }}
+                onPress={() => navigation.navigate('payment')}
+              />
             </View>
             <View
               style={{
@@ -208,7 +208,9 @@ const HistoryScreen = ({navigation}) => {
                   fontSize: 13,
                   paddingVertical: 10,
                 }}>
-                You have successfully purchased a plan successfully. Your plan is expiring on 08 July 2023. You can now enjoy using our services. 
+                You have successfully purchased a plan successfully. Your plan
+                is expiring on 08 July 2023. You can now enjoy using our
+                services.
               </Text>
             </View>
           </View>

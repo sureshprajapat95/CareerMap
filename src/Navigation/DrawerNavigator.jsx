@@ -17,6 +17,7 @@ import TabNavigator from './TabNavigator';
 import User from '../Utils/Icons/User';
 import {Fonts} from '../Utils/Fonts';
 import Badge from '../Components/Badge';
+import ProfileIcon from '../Utils/Icons/ProfileIcon';
 
 const Drawer = createDrawerNavigator();
 
@@ -106,7 +107,7 @@ function CustomDrawerContent(props) {
           props.navigation.navigate('Profile');
         }}
         icon={() => (
-          <Privacy width="20px" height="20px" fill={Colors.primary} />
+          <ProfileIcon width="20px" height="20px" fill={Colors.primary} />
         )}
         labelStyle={{marginLeft: -20}}
       />

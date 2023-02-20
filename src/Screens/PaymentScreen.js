@@ -1,28 +1,19 @@
-import {ScrollView, View, Text} from 'react-native';
+import {View, Text} from 'react-native';
 import React from 'react';
-import AppHeader from '../Components/AppHeader';
-import Hamburger from '../Utils/Icons/Hamburger';
 import AppContainer from '../Components/AppContainer';
 import Input from '../Components/Input';
 import {Device} from '../Utils/DeviceDimensions';
 import Button from '../Components/Button';
-import ChevronRight, {ChevronLeft} from '../Utils/Icons/Chevrons';
-import {Colors} from '../Utils/Colors';
+import ChevronRight from '../Utils/Icons/Chevrons';
 import Separator from '../Components/Separator';
+import TabHeader from '../Components/TabHeader';
 
 const PaymentScreen = ({navigation}) => {
   return (
     <>
-      <AppHeader
-        middleText={'Purchase Plan'}
-        left={{
-          show: true,
-          Icon: ChevronLeft,
-          click: () => navigation.goBack(),
-        }}
-        right={{
-          show: false,
-        }}
+      <TabHeader
+        leftClick={() => navigation.openDrawer()}
+        navigation={navigation}
       />
       <View style={{flex: 1}}>
         <AppContainer>

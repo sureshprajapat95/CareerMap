@@ -1,30 +1,20 @@
-import React from 'react';
-import {View, ScrollView} from 'react-native';
+import React, { useContext } from 'react';
+import {View, ScrollView, Alert} from 'react-native';
 import {WebView} from 'react-native-webview';
 import {Device} from '../Utils/DeviceDimensions';
 import {ButtonHalfWidth} from '../Components/Button';
-import AppHeader from '../Components/AppHeader';
-import Hamburger from '../Utils/Icons/Hamburger';
-import Login from '../Utils/Icons/Login';
-import { Colors } from '../Utils/Colors';
+import TabHeader from '../Components/TabHeader';
+import { useFocusEffect } from '@react-navigation/native';
+import { AuthContext } from '../Context/auth-context';
 
 const HomeScreen = ({navigation}) => {
+  const {token} = useContext(AuthContext);
+
+  
+
   return (
     <>
-      <AppHeader
-      style={{backgroundColor: Colors.light}}
-      middleText={'Home'}
-        left={{
-          show: true,
-          Icon: Hamburger,
-          click: () => navigation.openDrawer(),
-        }}
-        right={{
-          show: true,
-          Icon: Login,
-          click: () => navigation.navigate('login'),
-        }}
-      />
+      <TabHeader  leftClick={()=>navigation.openDrawer()} navigation={navigation} />
       <ScrollView
         style={{
           backgroundColor: '#fff',
@@ -56,7 +46,13 @@ const HomeScreen = ({navigation}) => {
             }}>
             <ButtonHalfWidth
               buttonText={'Career Path Finder'}
-              onPress={null}
+              onPress={()=>{
+                console.log(token),
+                navigation.navigate('webopener', {
+                  uri: `https://careermaps.live/career-path-finder?caller=app&token=${token}`,
+                  title: 'Career Path Finder',
+                })
+              }}
               style={{marginRight: 10}}
             />
             <ButtonHalfWidth buttonText={'Rank'} onPress={null} />

@@ -20,12 +20,14 @@ import {Device} from '../Utils/DeviceDimensions';
 const INITIAL_STATE = {
   first_name: '',
   last_name: '',
-  mobile_number: '',
+  dial_code: '+91',
+  phone_number: '',
   email: '',
   gender: '',
   dob: '',
-  current_standart: '',
-  aim_occupation: '',
+  occupation: '',
+  current_standard: '',
+  device_type: '',
 };
 
 const SignUpScreen = ({navigation}) => {
@@ -54,167 +56,6 @@ const SignUpScreen = ({navigation}) => {
       <ScrollView
         style={{flex: 1, backgroundColor: '#fff', position: 'relative'}}>
         <AppContainer>
-          <View
-            style={{
-              marginTop: 40,
-              borderColor: Colors.primary,
-              borderWidth: 2,
-              borderRadius: 4,
-              padding: 20,
-            }}>
-            <View style={{flexDirection: 'row', marginBottom: 15}}>
-              <View>
-                <PointingHand />
-              </View>
-              <View style={{paddingLeft: 20}}>
-                <View>
-                  <Text
-                    style={{
-                      fontSize: 18,
-                      fontWeight: '600',
-                      color: Colors.dark,
-                    }}>
-                    Mentors
-                  </Text>
-                </View>
-                <View>
-                  <Text
-                    style={{
-                      fontSize: 17,
-                      fontWeight: '400',
-                      color: Colors.dark,
-                    }}>
-                    Free mentoring per week
-                  </Text>
-                </View>
-              </View>
-            </View>
-            <View style={{flexDirection: 'row', marginBottom: 15}}>
-              <View>
-                <PointingHand />
-              </View>
-              <View style={{paddingLeft: 20}}>
-                <View>
-                  <Text
-                    style={{
-                      fontSize: 18,
-                      fontWeight: '600',
-                      color: Colors.dark,
-                    }}>
-                    Remote Learning
-                  </Text>
-                </View>
-              </View>
-            </View>
-            <View style={{flexDirection: 'row', marginBottom: 15}}>
-              <View>
-                <PointingHand />
-              </View>
-              <View style={{paddingLeft: 20}}>
-                <View>
-                  <Text
-                    style={{
-                      fontSize: 18,
-                      fontWeight: '600',
-                      color: Colors.dark,
-                    }}>
-                    Unlimited counseling
-                  </Text>
-                </View>
-                <View>
-                  <Text
-                    style={{
-                      fontSize: 17,
-                      fontWeight: '400',
-                      color: Colors.dark,
-                    }}>
-                    From India's best Counselors
-                  </Text>
-                </View>
-              </View>
-            </View>
-            <View style={{flexDirection: 'row', marginBottom: 15}}>
-              <View>
-                <PointingHand />
-              </View>
-              <View style={{paddingLeft: 20}}>
-                <View>
-                  <Text
-                    style={{
-                      fontSize: 18,
-                      fontWeight: '600',
-                      color: Colors.dark,
-                    }}>
-                    Specialised English Communication
-                  </Text>
-                </View>
-                <View>
-                  <Text
-                    style={{
-                      fontSize: 17,
-                      fontWeight: '400',
-                      color: Colors.dark,
-                    }}>
-                    session
-                  </Text>
-                </View>
-              </View>
-            </View>
-            <View style={{flexDirection: 'row', marginBottom: 15}}>
-              <View>
-                <PointingHand />
-              </View>
-              <View style={{paddingLeft: 20}}>
-                <View>
-                  <Text
-                    style={{
-                      fontSize: 18,
-                      fontWeight: '600',
-                      color: Colors.dark,
-                    }}>
-                    Watch videos
-                  </Text>
-                </View>
-                <View>
-                  <Text
-                    style={{
-                      fontSize: 17,
-                      fontWeight: '400',
-                      color: Colors.dark,
-                    }}>
-                    1000+ hours of engages videos containing all syllabus
-                  </Text>
-                </View>
-              </View>
-            </View>
-            <View style={{flexDirection: 'row', marginBottom: 15}}>
-              <View>
-                <PointingHand />
-              </View>
-              <View style={{paddingLeft: 20}}>
-                <View>
-                  <Text
-                    style={{
-                      fontSize: 18,
-                      fontWeight: '600',
-                      color: Colors.dark,
-                    }}>
-                    Career Maps
-                  </Text>
-                </View>
-                <View>
-                  <Text
-                    style={{
-                      fontSize: 17,
-                      fontWeight: '400',
-                      color: Colors.dark,
-                    }}>
-                    400+ Careers on one platform
-                  </Text>
-                </View>
-              </View>
-            </View>
-          </View>
           <View style={{alignItems: 'center'}}>
             <SignUp width={Device.width / 1.5} height={Device.width / 1.5} />
           </View>
@@ -223,16 +64,42 @@ const SignUpScreen = ({navigation}) => {
               Register with below details
             </Text>
             <View style={{marginTop: 20}}>
-              <Input keyboardType={'default'} placeholder={'First Name'} />
-              <Input keyboardType={'default'} placeholder={'Last Name'} />
+              <Input
+                keyboardType={'default'}
+                placeholder={'First Name'}
+                onChangeText={text =>
+                  setStates(prev => {
+                    return {...prev, first_name: text};
+                  })
+                }
+              />
+              <Input
+                keyboardType={'default'}
+                placeholder={'Last Name'}
+                onChangeText={text =>
+                  setStates(prev => {
+                    return {...prev, last_name: text};
+                  })
+                }
+              />
               <Input
                 keyboardType={'number-pad'}
                 placeholder={'Phone Number'}
                 customText={true}
+                onChangeText={text =>
+                  setStates(prev => {
+                    return {...prev, first_name: text};
+                  })
+                }
               />
               <Input
                 keyboardType={'email-address'}
                 placeholder={'Email Address (Optional)'}
+                onChangeText={text =>
+                  setStates(prev => {
+                    return {...prev, first_name: text};
+                  })
+                }
               />
               <View>
                 <Text
@@ -399,6 +266,167 @@ const SignUpScreen = ({navigation}) => {
                   Sign in
                 </Text>
               </Pressable>
+            </View>
+          </View>
+          <View
+            style={{
+              marginTop: 40,
+              borderColor: Colors.primary,
+              borderWidth: 2,
+              borderRadius: 4,
+              padding: 20,
+            }}>
+            <View style={{flexDirection: 'row', marginBottom: 15}}>
+              <View>
+                <PointingHand />
+              </View>
+              <View style={{paddingLeft: 20}}>
+                <View>
+                  <Text
+                    style={{
+                      fontSize: 18,
+                      fontWeight: '600',
+                      color: Colors.dark,
+                    }}>
+                    Mentors
+                  </Text>
+                </View>
+                <View>
+                  <Text
+                    style={{
+                      fontSize: 17,
+                      fontWeight: '400',
+                      color: Colors.dark,
+                    }}>
+                    Free mentoring per week
+                  </Text>
+                </View>
+              </View>
+            </View>
+            <View style={{flexDirection: 'row', marginBottom: 15}}>
+              <View>
+                <PointingHand />
+              </View>
+              <View style={{paddingLeft: 20}}>
+                <View>
+                  <Text
+                    style={{
+                      fontSize: 18,
+                      fontWeight: '600',
+                      color: Colors.dark,
+                    }}>
+                    Remote Learning
+                  </Text>
+                </View>
+              </View>
+            </View>
+            <View style={{flexDirection: 'row', marginBottom: 15}}>
+              <View>
+                <PointingHand />
+              </View>
+              <View style={{paddingLeft: 20}}>
+                <View>
+                  <Text
+                    style={{
+                      fontSize: 18,
+                      fontWeight: '600',
+                      color: Colors.dark,
+                    }}>
+                    Unlimited counseling
+                  </Text>
+                </View>
+                <View>
+                  <Text
+                    style={{
+                      fontSize: 17,
+                      fontWeight: '400',
+                      color: Colors.dark,
+                    }}>
+                    From India's best Counselors
+                  </Text>
+                </View>
+              </View>
+            </View>
+            <View style={{flexDirection: 'row', marginBottom: 15}}>
+              <View>
+                <PointingHand />
+              </View>
+              <View style={{paddingLeft: 20}}>
+                <View>
+                  <Text
+                    style={{
+                      fontSize: 18,
+                      fontWeight: '600',
+                      color: Colors.dark,
+                    }}>
+                    Specialised English Communication
+                  </Text>
+                </View>
+                <View>
+                  <Text
+                    style={{
+                      fontSize: 17,
+                      fontWeight: '400',
+                      color: Colors.dark,
+                    }}>
+                    session
+                  </Text>
+                </View>
+              </View>
+            </View>
+            <View style={{flexDirection: 'row', marginBottom: 15}}>
+              <View>
+                <PointingHand />
+              </View>
+              <View style={{paddingLeft: 20}}>
+                <View>
+                  <Text
+                    style={{
+                      fontSize: 18,
+                      fontWeight: '600',
+                      color: Colors.dark,
+                    }}>
+                    Watch videos
+                  </Text>
+                </View>
+                <View>
+                  <Text
+                    style={{
+                      fontSize: 17,
+                      fontWeight: '400',
+                      color: Colors.dark,
+                    }}>
+                    1000+ hours of engages videos containing all syllabus
+                  </Text>
+                </View>
+              </View>
+            </View>
+            <View style={{flexDirection: 'row', marginBottom: 15}}>
+              <View>
+                <PointingHand />
+              </View>
+              <View style={{paddingLeft: 20}}>
+                <View>
+                  <Text
+                    style={{
+                      fontSize: 18,
+                      fontWeight: '600',
+                      color: Colors.dark,
+                    }}>
+                    Career Maps
+                  </Text>
+                </View>
+                <View>
+                  <Text
+                    style={{
+                      fontSize: 17,
+                      fontWeight: '400',
+                      color: Colors.dark,
+                    }}>
+                    400+ Careers on one platform
+                  </Text>
+                </View>
+              </View>
             </View>
           </View>
         </AppContainer>
