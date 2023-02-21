@@ -1,20 +1,22 @@
-import React, { useContext } from 'react';
+import React, {useContext} from 'react';
 import {View, ScrollView, Alert} from 'react-native';
 import {WebView} from 'react-native-webview';
 import {Device} from '../Utils/DeviceDimensions';
 import {ButtonHalfWidth} from '../Components/Button';
 import TabHeader from '../Components/TabHeader';
-import { useFocusEffect } from '@react-navigation/native';
-import { AuthContext } from '../Context/auth-context';
+import {useFocusEffect} from '@react-navigation/native';
+import {AuthContext} from '../Context/auth-context';
 
 const HomeScreen = ({navigation}) => {
   const {token} = useContext(AuthContext);
 
-  
-
   return (
     <>
-      <TabHeader  leftClick={()=>navigation.openDrawer()} navigation={navigation} />
+      <TabHeader
+        leftClick={() => navigation.openDrawer()}
+        navigation={navigation}
+        title={'Home'}
+      />
       <ScrollView
         style={{
           backgroundColor: '#fff',
@@ -31,33 +33,37 @@ const HomeScreen = ({navigation}) => {
             source={{uri: 'https://careermaps.live?caller=app'}}
           />
         </View>
-        <View
-          style={{
-            flex: 1,
-          }}>
+        {token ? (
           <View
             style={{
-              flexDirection: 'row',
               flex: 1,
-              marginTop: 20,
-              height: (Device.height * 2) / 7,
-              alignItems: 'baseline',
-              justifyContent: 'space-evenly',
             }}>
-            <ButtonHalfWidth
-              buttonText={'Career Path Finder'}
-              onPress={()=>{
-                console.log(token),
-                navigation.navigate('webopener', {
-                  uri: `https://careermaps.live/career-path-finder?caller=app&token=${token}`,
-                  title: 'Career Path Finder',
-                })
-              }}
-              style={{marginRight: 10}}
-            />
-            <ButtonHalfWidth buttonText={'Rank'} onPress={null} />
+            <View
+              style={{
+                flexDirection: 'row',
+                flex: 1,
+                marginTop: 20,
+                height: (Device.height * 2) / 7,
+                alignItems: 'baseline',
+                justifyContent: 'space-evenly',
+              }}>
+              <ButtonHalfWidth
+                buttonText={'Career Path Finder'}
+                onPress={() => {
+                  console.log(token),
+                    navigation.navigate('webopener', {
+                      uri: `https://careermaps.live/career-path-finder?caller=app&token=${token}`,
+                      title: 'Career Path Finder',
+                    });
+                }}
+                style={{marginRight: 10}}
+              />
+              <ButtonHalfWidth buttonText={'Rank'} onPress={null} />
+            </View>
           </View>
-        </View>
+        ) : (
+          ''
+        )}
       </ScrollView>
     </>
   );

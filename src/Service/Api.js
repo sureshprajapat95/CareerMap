@@ -18,6 +18,10 @@ const API_BASE = {
   getPorfile: {
     route: 'api/account',
     method: 'GET'
+  },
+  queryList: {
+    route: 'api/query',
+    method: 'GET'
   }
 };
 

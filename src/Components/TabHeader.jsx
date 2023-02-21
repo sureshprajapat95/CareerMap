@@ -6,7 +6,7 @@ import Login from '../Utils/Icons/Login';
 import Logout from '../Utils/Icons/Logout';
 import AppHeader from './AppHeader';
 
-function TabHeader({leftClick,navigation}) {
+function TabHeader({leftClick,navigation,title}) {
   const {isAuthenticated,logout} = useContext(AuthContext);
 
   
@@ -21,7 +21,7 @@ function TabHeader({leftClick,navigation}) {
   return (
     <AppHeader
       style={{backgroundColor: Colors.light}}
-      middleText={'Home'}
+      middleText={title}
       left={{
         show: true,
         Icon: Hamburger,
