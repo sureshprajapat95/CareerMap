@@ -2,6 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React, {useContext} from 'react';
+import Toastify from '../Components/Toastify';
 import {AuthContext} from '../Context/auth-context';
 import AddQueryScreen from '../Screens/AddQueryScreen';
 import LoginScreen from '../Screens/LoginScreen';
@@ -57,6 +58,7 @@ const Navigator = () => {
         <Stack.Screen name="payment" component={PaymentScreen} />
         <Stack.Screen name="Profile" component={ProfileScreen} />
       </Stack.Navigator>
+      <Toastify />
     </NavigationContainer>
   );
 };

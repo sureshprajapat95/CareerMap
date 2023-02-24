@@ -16,6 +16,10 @@ import PointingHand from '../Utils/Icons/PointingHand';
 import AppHeader from '../Components/AppHeader';
 import SignUp from '../Utils/Illustrations/SignUp';
 import {Device} from '../Utils/DeviceDimensions';
+import {ToastMessage} from '../Components/Toastify';
+import {Call} from '../Service/Api';
+import Loader from '../Utils/Loader';
+import { Fonts } from '../Utils/Fonts';
 
 const INITIAL_STATE = {
   first_name: '',
@@ -25,14 +29,15 @@ const INITIAL_STATE = {
   email: '',
   gender: '',
   dob: '',
-  occupation: '',
-  current_standard: '',
-  device_type: '',
+  occupation: 'Occupation',
+  current_standard: 'Current Standard',
+  device_type: 'android',
 };
 
 const SignUpScreen = ({navigation}) => {
   const [states, setStates] = React.useState(INITIAL_STATE);
   const [toggleCheckBox, setToggleCheckBox] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(false);
 
   const handleGender = type => {
     setStates(prev => {
@@ -40,8 +45,68 @@ const SignUpScreen = ({navigation}) => {
     });
   };
 
+  handleSubmit = async () => {
+    if (states.first_name.trim() === '') {
+      ToastMessage('error', 'Validation Error', 'First name is required');
+      return;
+    }
+    if (states.last_name.trim() === '') {
+      ToastMessage('error', 'Validation Error', 'Last name is required');
+      return;
+    }
+    if (states.phone_number.trim() === '') {
+      ToastMessage('error', 'Validation Error', 'Mobile number is required');
+      return;
+    }
+    if (states.phone_number.trim().length != 10) {
+      ToastMessage('error', 'Validation Error', 'Enter correct mobile number');
+      return;
+    }
+    if (states.gender.trim() === '') {
+      ToastMessage('error', 'Validation Error', 'Gender is required');
+      return;
+    }
+    if (!toggleCheckBox) {
+      ToastMessage(
+        'error',
+        'Validation Error',
+        'Please accept terms and conditions',
+      );
+      return;
+    }
+    setIsLoading(true);
+    let payload = {...states};
+    try {
+      const response = await Call('signup', payload);
+      setIsLoading(false);
+      console.log(response.data);
+      navigation.navigate('otp', {phone_number: states.phone_number});
+    } catch (error) {
+      setIsLoading(false);
+      console.log(error.response.status);
+      console.log(error.response.data);
+      ToastMessage('error','Error',error.response.data.message);
+    }
+  };
+
+  handleDateOfBirth = e => {
+    if (e.type == 'set') {
+      let dateFormat = new Date(e.nativeEvent.timestamp);
+      let month = parseInt(dateFormat.getMonth()) + 1;
+      let date = dateFormat.getDate();
+      month = month < 10 ? '0' + month : month;
+      date = date < 10 ? '0' + date : date;
+      let dob = dateFormat.getFullYear() + '-' + month + '-' + date;
+
+      setStates(prev => {
+        return {...prev, dob};
+      });
+    }
+  };
+
   return (
     <>
+      <Loader visible={isLoading} />
       <AppHeader
         middleText={'Sign Up'}
         left={{
@@ -60,13 +125,14 @@ const SignUpScreen = ({navigation}) => {
             <SignUp width={Device.width / 1.5} height={Device.width / 1.5} />
           </View>
           <View style={{marginTop: 20}}>
-            <Text style={{fontSize: 20, fontWeight: '600', color: Colors.dark}}>
+            <Text style={{fontSize: 20, fontWeight: '600', color: Colors.dark,fontFamily: Fonts.Medium}}>
               Register with below details
             </Text>
             <View style={{marginTop: 20}}>
               <Input
                 keyboardType={'default'}
                 placeholder={'First Name'}
+                value={states.first_name}
                 onChangeText={text =>
                   setStates(prev => {
                     return {...prev, first_name: text};
@@ -76,6 +142,7 @@ const SignUpScreen = ({navigation}) => {
               <Input
                 keyboardType={'default'}
                 placeholder={'Last Name'}
+                value={states.last_name}
                 onChangeText={text =>
                   setStates(prev => {
                     return {...prev, last_name: text};
@@ -86,18 +153,20 @@ const SignUpScreen = ({navigation}) => {
                 keyboardType={'number-pad'}
                 placeholder={'Phone Number'}
                 customText={true}
+                value={states.phone_number}
                 onChangeText={text =>
                   setStates(prev => {
-                    return {...prev, first_name: text};
+                    return {...prev, phone_number: text};
                   })
                 }
               />
               <Input
                 keyboardType={'email-address'}
                 placeholder={'Email Address (Optional)'}
+                value={states.email}
                 onChangeText={text =>
                   setStates(prev => {
-                    return {...prev, first_name: text};
+                    return {...prev, email: text};
                   })
                 }
               />
@@ -108,6 +177,7 @@ const SignUpScreen = ({navigation}) => {
                     fontSize: 18,
                     fontWeight: '600',
                     marginBottom: 10,
+                    fontFamily: Fonts.Medium
                   }}>
                   Gender
                 </Text>
@@ -178,36 +248,35 @@ const SignUpScreen = ({navigation}) => {
                 </View>
               </View>
               <PressableInput
-                placeholder={'Select DOB'}
-                onPress={() =>
+                placeholder={states.dob ? states.dob : 'Select DOB'}
+                onPress={() => {
+                  let dobArr = states.dob ? states.dob.split('-') : [];
                   DateTimePickerAndroid.open({
-                    value: new Date(),
-                    onChange: e => {} /* onChange(e, type) */,
+                    value: dobArr.length
+                      ? new Date(
+                          dobArr[0],
+                          dobArr[1] - 1,
+                          dobArr[2],
+                          '00',
+                          '00',
+                          0,
+                          0,
+                        )
+                      : new Date(),
+                    onChange: handleDateOfBirth,
                     mode: 'date',
-                  })
-                }
+                  });
+                }}
                 iconRight={<Calendar width="25px" height="25px" />}
               />
               <PressableInput
                 placeholder={'Current Standart'}
-                onPress={() =>
-                  DateTimePickerAndroid.open({
-                    value: new Date(),
-                    onChange: e => {} /* onChange(e, type) */,
-                    mode: 'date',
-                  })
-                }
+                onPress={() => null}
                 iconRight={<ChevronRight width="18px" height="18px" />}
               />
               <PressableInput
                 placeholder={'Select Destination/Aim Occupation'}
-                onPress={() =>
-                  DateTimePickerAndroid.open({
-                    value: new Date(),
-                    onChange: e => {} /* onChange(e, type) */,
-                    mode: 'date',
-                  })
-                }
+                onPress={() => null}
                 iconRight={<ChevronRight width="18px" height="18px" />}
               />
               <View
@@ -222,8 +291,8 @@ const SignUpScreen = ({navigation}) => {
                   onValueChange={newValue => setToggleCheckBox(newValue)}
                   tintColors={{true: Colors.primary, false: Colors.lightdark}}
                 />
-                <Text>
-                  By sigining you agree,{' '}
+                <Text style={{fontFamily: Fonts.Medium}}>
+                  By signing you agree,{' '}
                   <Text style={{color: Colors.primary, fontWeight: '600'}}>
                     T&C
                   </Text>{' '}
@@ -233,10 +302,7 @@ const SignUpScreen = ({navigation}) => {
                   </Text>
                 </Text>
               </View>
-              <Button
-                buttonText={'Create an account'}
-                onPress={() => navigation.navigate('otp')}
-              />
+              <Button buttonText={'Create an account'} onPress={handleSubmit} />
               <Pressable
                 style={{
                   flexDirection: 'row',
@@ -253,6 +319,7 @@ const SignUpScreen = ({navigation}) => {
                     fontSize: 18,
                     fontWeight: '600',
                     color: Colors.dark,
+                    fontFamily: Fonts.Bold
                   }}>
                   Already have an Account?
                 </Text>
@@ -262,6 +329,7 @@ const SignUpScreen = ({navigation}) => {
                     fontSize: 18,
                     fontWeight: '600',
                     paddingLeft: 10,
+                    fontFamily: Fonts.Bold
                   }}>
                   Sign in
                 </Text>
@@ -287,6 +355,7 @@ const SignUpScreen = ({navigation}) => {
                       fontSize: 18,
                       fontWeight: '600',
                       color: Colors.dark,
+                      fontFamily: Fonts.Bold
                     }}>
                     Mentors
                   </Text>
@@ -297,6 +366,7 @@ const SignUpScreen = ({navigation}) => {
                       fontSize: 17,
                       fontWeight: '400',
                       color: Colors.dark,
+                      fontFamily: Fonts.Medium
                     }}>
                     Free mentoring per week
                   </Text>
@@ -314,6 +384,7 @@ const SignUpScreen = ({navigation}) => {
                       fontSize: 18,
                       fontWeight: '600',
                       color: Colors.dark,
+                      fontFamily: Fonts.Bold
                     }}>
                     Remote Learning
                   </Text>
@@ -331,6 +402,7 @@ const SignUpScreen = ({navigation}) => {
                       fontSize: 18,
                       fontWeight: '600',
                       color: Colors.dark,
+                      fontFamily: Fonts.Bold
                     }}>
                     Unlimited counseling
                   </Text>
@@ -341,6 +413,7 @@ const SignUpScreen = ({navigation}) => {
                       fontSize: 17,
                       fontWeight: '400',
                       color: Colors.dark,
+                      fontFamily: Fonts.Medium
                     }}>
                     From India's best Counselors
                   </Text>
@@ -358,6 +431,7 @@ const SignUpScreen = ({navigation}) => {
                       fontSize: 18,
                       fontWeight: '600',
                       color: Colors.dark,
+                      fontFamily: Fonts.Bold
                     }}>
                     Specialised English Communication
                   </Text>
@@ -368,6 +442,7 @@ const SignUpScreen = ({navigation}) => {
                       fontSize: 17,
                       fontWeight: '400',
                       color: Colors.dark,
+                      fontFamily: Fonts.Medium
                     }}>
                     session
                   </Text>
@@ -385,6 +460,7 @@ const SignUpScreen = ({navigation}) => {
                       fontSize: 18,
                       fontWeight: '600',
                       color: Colors.dark,
+                      fontFamily: Fonts.Bold
                     }}>
                     Watch videos
                   </Text>
@@ -395,6 +471,7 @@ const SignUpScreen = ({navigation}) => {
                       fontSize: 17,
                       fontWeight: '400',
                       color: Colors.dark,
+                      fontFamily: Fonts.Medium
                     }}>
                     1000+ hours of engages videos containing all syllabus
                   </Text>
@@ -412,6 +489,7 @@ const SignUpScreen = ({navigation}) => {
                       fontSize: 18,
                       fontWeight: '600',
                       color: Colors.dark,
+                      fontFamily: Fonts.Bold
                     }}>
                     Career Maps
                   </Text>
@@ -422,6 +500,7 @@ const SignUpScreen = ({navigation}) => {
                       fontSize: 17,
                       fontWeight: '400',
                       color: Colors.dark,
+                      fontFamily: Fonts.Medium
                     }}>
                     400+ Careers on one platform
                   </Text>

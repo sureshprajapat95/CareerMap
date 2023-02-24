@@ -4,11 +4,29 @@ import {Neomorph} from 'react-native-neomorph-shadows';
 import {Colors} from '../Utils/Colors';
 import {Device} from '../Utils/DeviceDimensions';
 import {Fonts} from '../Utils/Fonts';
+import Counsellor from '../Utils/Icons/Counsellor';
 import Query from '../Utils/Icons/Query';
 import Badge from './Badge';
+import moment from 'moment';
+import Message from '../Utils/Icons/Message';
 
-const QueryBox = ({status, onPress}) => {
+const QueryBox = ({data, status, onPress}) => {
   const [pressed, setPressed] = React.useState(false);
+  let obj = {
+    __v: 0,
+    _id: '62e0e65770c0cdc187763bf3',
+    createdAt: '2022-07-27T07:16:39.732Z',
+    filePath: '/api/query/62e0e65770c0cdc187763bf3/download',
+    phone_number: '1231234565',
+    question: 'looks great',
+    repliedBy: '62de8a586bc6df5851f38552',
+    reply: 'NA',
+    status: 'cancelled',
+    type: 'query',
+    updatedAt: '2022-07-27T08:12:38.608Z',
+    user: '62ded2c9176c19c8b589d568',
+  };
+
   return (
     <Pressable
       style={{marginTop: 25}}
@@ -33,14 +51,20 @@ const QueryBox = ({status, onPress}) => {
             flexDirection: 'row',
             justifyContent: 'space-between',
           }}>
-          <Text style={{fontFamily: Fonts.SemiBold, fontSize: 17}}>Query</Text>
           <Text style={{fontFamily: Fonts.SemiBold, fontSize: 17}}>
-            04 Nov 2022
+            {data.type == 'query' ? 'Query' : 'Counsellor'}
+          </Text>
+          <Text style={{fontFamily: Fonts.SemiBold, fontSize: 12}}>
+            {moment(data.createdAt).format('Do MMM YYYY')}
           </Text>
         </View>
         <View style={{flexDirection: 'row', paddingTop: 20}}>
           <View>
-            <Query width="45px" height="45px" fill={Colors.primary} />
+            {data.type == 'query' ? (
+              <Message width="45px" height="45px" fill={Colors.primary} />
+            ) : (
+              <Counsellor width="45px" height="45px" fill={Colors.primary} />
+            )}
           </View>
           <View style={{paddingLeft: 20, flex: 1}}>
             <View style={{flex: 1}}>
@@ -53,14 +77,13 @@ const QueryBox = ({status, onPress}) => {
                     overflow: 'hidden',
                   }}
                   numberOfLines={2}>
-                  You miss fdddddd dddddddd You miss fdd iss fdd fdddddd
-                  dddddddd You miss fdd fdddddd dddddddd You miss
+                  {data.question}
                 </Text>
               </View>
               <Badge
-                title={status}
+                title={data.status}
                 badgeStyle={{
-                  width: Device.width / 4,
+                  width: Device.width / 5,
                   backgroundColor:
                     status == 'Open' ? Colors.primary : Colors.lightdark,
                 }}

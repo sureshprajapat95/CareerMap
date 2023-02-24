@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-  TextInput,
-  Pressable,
-  Text,
-  ScrollView,
-  View,
-  Button as Btn,
-} from 'react-native';
+import {Pressable, Text, ScrollView, View} from 'react-native';
 import {Neomorph} from 'react-native-neomorph-shadows';
 import AppContainer from '../Components/AppContainer';
 import AppHeader from '../Components/AppHeader';
@@ -56,7 +49,7 @@ const AddQueryScreen = ({navigation}) => {
   }
 
   const addQuery = () => {
-    const formData = new FormData();
+    /* const formData = new FormData();
     formData.append('file', {
       uri: fileUri,
       name: fileName,
@@ -73,7 +66,7 @@ const AddQueryScreen = ({navigation}) => {
       })
       .catch(error => {
         // handle error
-      });
+      }); */
   };
 
   return (
@@ -185,7 +178,11 @@ const AddQueryScreen = ({navigation}) => {
             <TextArea placeholder="Comment" />
           </View>
           <View style={{alignItems: 'flex-end'}}>
-            <PressableInput placeholder={'Select file'} neomorphStyle={{width: Device.width/2}} onPress={pickDocument}/>
+            <PressableInput
+              placeholder={'Select file'}
+              neomorphStyle={{width: Device.width / 2}}
+              onPress={pickDocument}
+            />
           </View>
           <View>
             <Button buttonText={'Add'} />

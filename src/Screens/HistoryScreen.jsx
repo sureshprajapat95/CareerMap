@@ -18,6 +18,7 @@ const HistoryScreen = ({navigation}) => {
         leftClick={() => navigation.openDrawer()}
         navigation={navigation}
         title={'History'}
+        color={isAuthenticated ? Colors.backgroundColor : Colors.light}
       />
       {isAuthenticated ? (
         <ScrollView>

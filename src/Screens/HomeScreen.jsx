@@ -6,6 +6,7 @@ import {ButtonHalfWidth} from '../Components/Button';
 import TabHeader from '../Components/TabHeader';
 import {useFocusEffect} from '@react-navigation/native';
 import {AuthContext} from '../Context/auth-context';
+import Toast from '../Utils/Toast';
 
 const HomeScreen = ({navigation}) => {
   const {token} = useContext(AuthContext);

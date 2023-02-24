@@ -2,6 +2,7 @@ import React from 'react';
 import {Text, View} from 'react-native';
 import {Colors} from '../Utils/Colors';
 import {Device} from '../Utils/DeviceDimensions';
+import { Fonts } from '../Utils/Fonts';
 
 const Separator = ({text = '',style={}}) => {
   return (
@@ -21,7 +22,7 @@ const Separator = ({text = '',style={}}) => {
           flex: 1,
           /* width: Device.width / 3, */
         }}></View>
-      {text != '' && <Text style={{paddingHorizontal: 20}}>{text}</Text>}
+      {text != '' && <Text style={{paddingHorizontal: 20,fontFamily: Fonts.Medium}}>{text}</Text>}
       <View
         style={{
           height: 1,

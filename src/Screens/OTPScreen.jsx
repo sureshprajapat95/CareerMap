@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View, ScrollView} from 'react-native';
+import {StyleSheet, View, Text, ScrollView} from 'react-native';
 import OTPInputView from '@twotalltotems/react-native-otp-input';
 import {Colors} from '../Utils/Colors';
 import AppContainer from '../Components/AppContainer';
@@ -10,13 +10,14 @@ import OTP from '../Utils/Illustrations/OTP';
 import {Device} from '../Utils/DeviceDimensions';
 import {Fonts} from '../Utils/Fonts';
 import {Call} from '../Service/Api';
-import { AuthContext } from '../Context/auth-context';
-import { useFocusEffect } from '@react-navigation/native';
+import {AuthContext} from '../Context/auth-context';
+import {useFocusEffect} from '@react-navigation/native';
 import Loader from '../Utils/Loader';
+import {ToastMessage} from '../Components/Toastify';
 
 const OTPScreen = ({navigation, route}) => {
   const [isLoading, setIsLoading] = React.useState(false);
-  const {authenticate} = React.useContext(AuthContext)
+  const {authenticate} = React.useContext(AuthContext);
   const {phone_number} = route.params;
   const INITIAL_STATE = {
     mobile: phone_number,
@@ -40,22 +41,25 @@ const OTPScreen = ({navigation, route}) => {
         dial_code: states.dial_code,
         otp: states.otp,
       };
-      try{
-        const response = await Call('verifyOTP',payload);
+      try {
+        const response = await Call('verifyOTP', payload);
         setIsLoading(false);
-        if(response.data.success){
+        if (response.data.success) {
+          console.log('>>>>>>>>>>>>>>>>>>>')
+          console.log(response.data)
           authenticate(response.data.data[0].accessToken);
-          /* navigation.navigate('mainhome'); */
-        }else{
-          Alert.alert(`${states.otpCode} Enter correct otp`);
+        } else {
+          ToastMessage('error','Error','Enter correct otp');
         }
-      }catch(err){
+      } catch (err) {
+        ToastMessage('error', 'Error', err.response.data.message);
         setIsLoading(false);
       }
     } else {
-      Alert.alert(`${states.otpCode} Enter correct otp`);
+      ToastMessage('error','Error','Enter correct otp');
     }
   };
+
   return (
     <>
       <Loader visible={isLoading} />
@@ -74,6 +78,15 @@ const OTPScreen = ({navigation, route}) => {
         <AppContainer>
           <View style={{alignItems: 'center'}}>
             <OTP width={Device.width / 1.5} height={Device.width / 1.5} />
+          </View>
+          <View style={{marginBottom: 10}}>
+            <Text style={{fontFamily: Fonts.Medium, fontSize: 17,marginBottom: 50}}>
+              We have send OTP on{' '}
+              <Text style={{fontSize: 20, fontFamily: Fonts.Bold}}>
+                {phone_number}
+              </Text>
+            </Text>
+            <Text style={{fontFamily: Fonts.Medium, fontSize: 19}}>Enter the OTP to login</Text>
           </View>
           <OTPInputView
             style={{width: '100%', height: 100}}

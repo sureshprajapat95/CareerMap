@@ -17,15 +17,23 @@ const API_BASE = {
   },
   getPorfile: {
     route: 'api/account',
-    method: 'GET'
+    method: 'GET',
+  },
+  updateProfile: {
+    route: 'auth/update-student',
+    method: 'PUT',
   },
   queryList: {
     route: 'api/query',
-    method: 'GET'
-  }
+    method: 'GET',
+  },
+  addQuery: {
+    route: 'api/query',
+    method: 'POST',
+  },
 };
 
-export const Call = async (URL, payload = null) => {
+export const Call = async (URL, payload = null,urlParam='') => {
   const storedToken = await AsyncStorage.getItem('token');
   let data = {};
   let headers = {};
@@ -40,7 +48,7 @@ export const Call = async (URL, payload = null) => {
   console.log(API_BASE.baseURL + API_BASE[URL].route, data, headers);
   const response = axios({
     method: API_BASE[URL].method,
-    url: API_BASE.baseURL + API_BASE[URL].route,
+    url: API_BASE.baseURL + API_BASE[URL].route + '/' +urlParam,
     data,
     headers,
   });

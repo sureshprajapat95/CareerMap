@@ -5,8 +5,10 @@ import AppContainer from '../Components/AppContainer';
 import AppHeader from '../Components/AppHeader';
 import Button from '../Components/Button';
 import Input from '../Components/Input';
+import { ToastMessage } from '../Components/Toastify';
 import {Call} from '../Service/Api';
 import {Colors} from '../Utils/Colors';
+import { Fonts } from '../Utils/Fonts';
 import ChevronRight, {ChevronLeft} from '../Utils/Icons/Chevrons';
 import Loader from '../Utils/Loader';
 
@@ -34,14 +36,14 @@ const LoginScreen = ({navigation}) => {
         if (response.data.success) {
           navigation.navigate('otp',{phone_number: states.phone_number});
         } else {
-          Alert.alert(`error`);
+          ToastMessage('error','Error',response.data.message);
         }
       } catch (error) {
         setIsLoading(false);
-          Alert.alert(error.response.data.message);
+        ToastMessage('error','Error',error.response.data.message);
       }
     } else {
-      Alert.alert(`${states.phone_number} Enter correct mobile number`);
+      ToastMessage('error','Error','Enter correct mobile number');
     }
   };
 
@@ -62,7 +64,7 @@ const LoginScreen = ({navigation}) => {
       <AppContainer>
         <View style={{alignItems: 'center', marginTop: 40}}>
           <Image source={staticImage} style={{width: 350, height: 100}} />
-          <Text style={{fontSize: 16, color: Colors.dark, textAlign: 'center'}}>
+          <Text style={{fontSize: 15,fontFamily: Fonts.Medium, color: Colors.dark, textAlign: 'center'}}>
             Get 'Career Guidance' from India's best Counselors
           </Text>
         </View>
@@ -75,7 +77,7 @@ const LoginScreen = ({navigation}) => {
             padding: 20,
             marginBottom: 50,
           }}>
-          <Text>
+          <Text style={{fontFamily: Fonts.SemiBold}}>
             Let's get started, enter your mobile number to sign in your Career
             Map account
           </Text>
@@ -110,6 +112,7 @@ const LoginScreen = ({navigation}) => {
               fontSize: 18,
               fontWeight: '600',
               color: Colors.dark,
+              fontFamily: Fonts.Bold
             }}>
             Don't have an Account?
           </Text>
@@ -119,6 +122,7 @@ const LoginScreen = ({navigation}) => {
               fontSize: 18,
               fontWeight: '600',
               paddingLeft: 10,
+              fontFamily: Fonts.Bold
             }}>
             Sign Up
           </Text>

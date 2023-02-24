@@ -9,8 +9,8 @@ const Badge = ({title,badgeStyle={}}) => {
       style={{
         textAlign: 'center',
         backgroundColor: Colors.primary,
-        paddingHorizontal: 10,
-        paddingVertical: 2,
+        paddingHorizontal: 5,
+        paddingBottom: 5,
         borderRadius: 20,
         color: Colors.light,
         marginTop: 10,

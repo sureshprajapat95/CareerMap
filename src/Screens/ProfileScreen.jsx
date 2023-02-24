@@ -11,18 +11,40 @@ import {PoppinsRegular} from '../Utils/Fonts';
 import Profile from '../Utils/Illustrations/Profile';
 import {Device} from '../Utils/DeviceDimensions';
 import {Call} from '../Service/Api';
-import {useFocusEffect} from '@react-navigation/native';
+import {DrawerActions, useFocusEffect} from '@react-navigation/native';
 import {AuthContext} from '../Context/auth-context';
 import NoLogin from '../Components/NoLogin';
 import Loader from '../Utils/Loader';
+import {ToastMessage} from '../Components/Toastify';
+
+const INITIAL_STATE = {
+  __v: 0,
+  _id: '62ded2c9176c19c8b589d568',
+  current_standard:
+    'Associate Membership of Institution of Engineers(A.M.I.E.)',
+  dob: '1988-10-09',
+  email: '',
+  first_name: 'glory',
+  gender: 'female',
+  gmeet: '.',
+  last_name: 'jain',
+  occupation: 'Diploma (Interior Designing & Display)',
+  phone_number: '9899152559',
+  role: 'Student',
+  whatsapp:
+    'https://api.whatsapp.com/send?phone=918971890397&text=Hello!%20I%20want%20to%20get%20Career%20Guidance%20and%20ways%20to%20Earn.',
+  device_type: 'android',
+  dial_code: '+91',
+};
 
 const ProfileScreen = ({navigation}) => {
   const {token} = useContext(AuthContext);
   const [isLoading, setIsLoading] = React.useState(false);
-  const [profile, setProfile] = React.useState({});
+  const [profile, setProfile] = React.useState(INITIAL_STATE);
 
   useFocusEffect(
     React.useCallback(() => {
+      navigation.dispatch(DrawerActions.closeDrawer());
       if (token) {
         getUserProfile();
       }
@@ -38,6 +60,39 @@ const ProfileScreen = ({navigation}) => {
     } catch (err) {
       setIsLoading(false);
       console.log(err.response.data.message);
+    }
+  };
+
+  const updateProfile = async () => {
+    if (profile.first_name.trim() === '') {
+      ToastMessage('error', 'Validation Error', 'First name is required');
+      return;
+    }
+    if (profile.last_name.trim() === '') {
+      ToastMessage('error', 'Validation Error', 'Last name is required');
+      return;
+    }
+    if (profile.phone_number.trim() === '') {
+      ToastMessage('error', 'Validation Error', 'Mobile is required');
+      return;
+    }
+    if (profile.phone_number.trim().length !== 10) {
+      ToastMessage('error', 'Validation Error', 'Mobile is required');
+      return;
+    }
+    setIsLoading(true);
+
+    let payload = {...profile};
+    try {
+      const response = await Call('updateProfile', payload,profile._id);
+      setIsLoading(false);
+      if(response.data.success){
+        ToastMessage('success','Success',response.data.message)
+      }
+    } catch (error) {
+      setIsLoading(false);
+      console.log('error.response');
+      console.log(error.response.data);
     }
   };
 
@@ -188,7 +243,7 @@ const ProfileScreen = ({navigation}) => {
               />
             </View>
             <View style={{marginTop: 10}}>
-              <Button buttonText={'Update Profile'} onPress={null} />
+              <Button buttonText={'Update Profile'} onPress={updateProfile} />
             </View>
           </AppContainer>
         </ScrollView>

@@ -9,6 +9,8 @@ import Separator from '../Components/Separator';
 import TabHeader from '../Components/TabHeader';
 import {AuthContext} from '../Context/auth-context';
 import NoLogin from '../Components/NoLogin';
+import { Colors } from '../Utils/Colors';
+import { Fonts } from '../Utils/Fonts';
 
 const PaymentScreen = ({navigation}) => {
   const {isAuthenticated} = useContext(AuthContext);
@@ -18,12 +20,13 @@ const PaymentScreen = ({navigation}) => {
         leftClick={() => navigation.openDrawer()}
         navigation={navigation}
         title={'Plans'}
+        color={isAuthenticated ? Colors.backgroundColor : Colors.light}
       />
       {isAuthenticated ? (
         <View style={{flex: 1}}>
           <AppContainer>
             <View style={{paddingTop: 20}}>
-              <Text>Already have a coupon code?</Text>
+              <Text style={{fontFamily: Fonts.Medium,fontSize: 18}}>Already have a coupon code?</Text>
               <View
                 style={{
                   flexDirection: 'row',
@@ -35,7 +38,7 @@ const PaymentScreen = ({navigation}) => {
                   style={{width: (Device.width * 2) / 3}}
                 />
                 <Button
-                  icon={<ChevronRight />}
+                  icon={<ChevronRight fill={Colors.light} />}
                   buttonText=""
                   buttonStyle={{width: 50, shadowRadius: 3}}
                 />
@@ -43,7 +46,7 @@ const PaymentScreen = ({navigation}) => {
             </View>
             <Separator text={'OR'} />
             <View>
-              <Text>
+              <Text style={{fontFamily: Fonts.Medium,fontSize: 16}}>
                 You have trial available to use all features for 30 days. Tap
                 button below to start your trial.
               </Text>
@@ -55,7 +58,7 @@ const PaymentScreen = ({navigation}) => {
             </View>
             <Separator text={'OR'} />
             <View>
-              <Text>
+              <Text style={{fontFamily: Fonts.Medium,fontSize: 16}}>
                 You can also purchase a paid plan also. Tap button below to
                 check our plans.{' '}
               </Text>

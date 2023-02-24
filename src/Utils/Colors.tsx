@@ -9,4 +9,6 @@ export const Colors = {
     backgroundColor: '#eff0f9',
     transparent: '#fff',
     black: '#000',
+    error: '#f11',
+    green: '#2aae48'
 }

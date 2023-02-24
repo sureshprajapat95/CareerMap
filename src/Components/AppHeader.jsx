@@ -1,4 +1,3 @@
-import {DrawerActions} from '@react-navigation/native';
 import React from 'react';
 import {Text, View} from 'react-native';
 import {Colors} from '../Utils/Colors';
