@@ -10,7 +10,7 @@ import Badge from './Badge';
 import moment from 'moment';
 import Message from '../Utils/Icons/Message';
 
-const QueryBox = ({data, status, onPress}) => {
+const QueryBox = ({data, onPress}) => {
   const [pressed, setPressed] = React.useState(false);
   let obj = {
     __v: 0,
@@ -85,7 +85,7 @@ const QueryBox = ({data, status, onPress}) => {
                 badgeStyle={{
                   width: Device.width / 5,
                   backgroundColor:
-                    status == 'Open' ? Colors.primary : Colors.lightdark,
+                    data.status == 'open' ? Colors.primary : Colors.lightdark,
                 }}
               />
             </View>

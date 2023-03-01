@@ -27,14 +27,27 @@ const API_BASE = {
     route: 'api/query',
     method: 'GET',
   },
+  queryAdd: {
+    route: 'api/query',
+    method: 'POST',
+  },
+  getQuery: {
+    route: 'api/query',
+    method: 'GET',
+  },
   addQuery: {
     route: 'api/query',
     method: 'POST',
   },
+  getPlans: {
+    route: 'api/plan',
+    method: 'GET',
+  },
 };
 
-export const Call = async (URL, payload = null,urlParam='') => {
+export const Call = async (URL, payload = null, urlParam = '') => {
   const storedToken = await AsyncStorage.getItem('token');
+  console.log(urlParam)
   let data = {};
   let headers = {};
   if (storedToken) {
@@ -45,10 +58,10 @@ export const Call = async (URL, payload = null,urlParam='') => {
       ...payload,
     };
   }
-  console.log(API_BASE.baseURL + API_BASE[URL].route, data, headers);
+  console.log(API_BASE.baseURL + API_BASE[URL].route + '/' + urlParam, data, headers);
   const response = axios({
     method: API_BASE[URL].method,
-    url: API_BASE.baseURL + API_BASE[URL].route + '/' +urlParam,
+    url: API_BASE.baseURL + API_BASE[URL].route + '/' + urlParam,
     data,
     headers,
   });

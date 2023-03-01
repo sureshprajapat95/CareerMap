@@ -66,6 +66,7 @@ const PaymentScreen = ({navigation}) => {
                 icon=""
                 buttonText="Buy Now"
                 buttonStyle={{width: 150, shadowRadius: 3, marginTop: 20}}
+                onPress={()=>navigation.navigate('Plans')}
               />
             </View>
           </AppContainer>

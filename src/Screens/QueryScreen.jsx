@@ -17,7 +17,7 @@ import Add from '../Utils/Icons/Add';
 import Loader from '../Utils/Loader';
 
 const QueryScreen = ({navigation}) => {
-  const {isAuthenticated, token} = useContext(AuthContext);
+  const {isAuthenticated, token,logout} = useContext(AuthContext);
   const [isLoading, setIsLoading] = React.useState(false);
   const [showDetails, setShowDetails] = React.useState(false);
   const [query, setQuery] = React.useState([]);
@@ -29,18 +29,21 @@ const QueryScreen = ({navigation}) => {
       setIsLoading(false);
       if (response.data.success) {
         // ToastMessage('success', 'Success', response.data.message);
+        console.log(response.data.data);
         setQuery(response.data.data);
       }
     } catch (err) {
       setIsLoading(false);
       ToastMessage('error', 'Error', err.response.data.message);
-      console.log(err.response.data);
+      console.log(err.response.status);
+      if(err.response.status === 403) {
+        logout()
+      }
     }
   };
 
   useFocusEffect(
     React.useCallback(() => {
-      console.log('isAuthenticated'+isAuthenticated)
       if (isAuthenticated) {
         getQueries();
       }
@@ -48,11 +51,20 @@ const QueryScreen = ({navigation}) => {
   );
 
   const openQuery = id => {
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-      setShowDetails(true);
-    }, 1500);
+    console.log(id)
+    if(id) {
+      try{
+        Call('getQuery',{},id).then(response=>{
+          console.log(response.data)
+        }).catch(error=>{
+          console.log(error.response.status)
+        })
+      }catch(error){
+
+      }
+    }
+    /* setIsLoading(true);
+      setShowDetails(true); */
   };
 
   return (
@@ -92,10 +104,9 @@ const QueryScreen = ({navigation}) => {
               query.map((item, index) => {
                 return (
                   <QueryBox
-                    status={'Open'}
                     key={index}
                     data={item}
-                    onPress={() => openQuery()}
+                    onPress={() => openQuery(item._id)}
                   />
                 );
               }) : ''}

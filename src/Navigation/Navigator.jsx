@@ -8,6 +8,7 @@ import AddQueryScreen from '../Screens/AddQueryScreen';
 import LoginScreen from '../Screens/LoginScreen';
 import OTPScreen from '../Screens/OTPScreen';
 import PaymentScreen from '../Screens/PaymentScreen';
+import PlanScreen from '../Screens/PlanScreen';
 import ProfileScreen from '../Screens/ProfileScreen';
 import SignUpScreen from '../Screens/SignUpScreen';
 import UrlOpenerScreen from '../Screens/UrlOpenerScreen';
@@ -57,6 +58,7 @@ const Navigator = () => {
         <Stack.Screen name="webopener" component={UrlOpenerScreen} />
         <Stack.Screen name="payment" component={PaymentScreen} />
         <Stack.Screen name="Profile" component={ProfileScreen} />
+        <Stack.Screen name="Plans" component={PlanScreen} />
       </Stack.Navigator>
       <Toastify />
     </NavigationContainer>

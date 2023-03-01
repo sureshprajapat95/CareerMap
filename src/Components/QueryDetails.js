@@ -36,13 +36,6 @@ const QueryDetails = ({visible, onClose}) => {
       onRequestClose={() => {}}>
       <View style={styles.modalBackground}>
         <View style={styles.activityIndicatorWrapper}>
-          {isLoading && (
-            <LottieView
-              source={require('../assets/loader.json')}
-              style={styles.animation}
-              autoPlay
-            />
-          )}
           <TouchableOpacity
             onPress={onClose}
             style={{position: 'absolute', right: 20, top: 10}}>

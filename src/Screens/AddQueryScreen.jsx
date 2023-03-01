@@ -9,19 +9,16 @@ import {Colors} from '../Utils/Colors';
 import {Device} from '../Utils/DeviceDimensions';
 import {Fonts} from '../Utils/Fonts';
 import {ChevronLeft} from '../Utils/Icons/Chevrons';
-import Other from '../Utils/Icons/Other';
 import AddQuery from '../Utils/Illustrations/AddQuery';
 import DocumentPicker from 'react-native-document-picker';
+import {Call} from '../Service/Api';
+import Message from '../Utils/Icons/Message';
+import Counsellor from '../Utils/Icons/Counsellor';
 
 const INITIAL_STATE = {
-  first_name: '',
-  last_name: '',
-  mobile_number: '',
-  email: '',
-  gender: '',
-  dob: '',
-  current_standart: '',
-  aim_occupation: '',
+  phone_number: '',
+  type: '',
+  question: '',
 };
 
 const AddQueryScreen = ({navigation}) => {
@@ -38,35 +35,25 @@ const AddQueryScreen = ({navigation}) => {
         type: [DocumentPicker.types.allFiles],
       });
       console.log(result);
-      // Now you can use the file data to upload it
+      let fileObj = {
+        uri: result[0].uri,
+        name: result[0].name,
+        contentType: result[0].type,
+      };
+      setStates(prev => ({...prev, file: fileObj}));
     } catch (err) {
       if (DocumentPicker.isCancel(err)) {
-        // User cancelled the picker
       } else {
-        // Error!
       }
     }
   }
 
   const addQuery = () => {
-    /* const formData = new FormData();
-    formData.append('file', {
-      uri: fileUri,
-      name: fileName,
-      type: fileType,
-    });
-
-    fetch(uploadUrl, {
-      method: 'POST',
-      body: formData,
-    })
-      .then(response => response.json())
-      .then(data => {
-        // handle response from server
+    Call('queryAdd', {...states})
+      .then(response => {
+        console.log(response.data);
       })
-      .catch(error => {
-        // handle error
-      }); */
+      .catch(err => console.log(err.response.data));
   };
 
   return (
@@ -116,7 +103,7 @@ const AddQueryScreen = ({navigation}) => {
                   marginBottom: 20,
                   marginRight: 20,
                 }}>
-                <Other
+                <Message
                   width={'30px'}
                   height={'30px'}
                   fill={states.type === 'query' ? Colors.primary : Colors.dark}
@@ -150,7 +137,7 @@ const AddQueryScreen = ({navigation}) => {
                   marginBottom: 20,
                   marginRight: 20,
                 }}>
-                <Other
+                <Counsellor
                   width={'30px'}
                   height={'30px'}
                   fill={
@@ -172,10 +159,23 @@ const AddQueryScreen = ({navigation}) => {
             </Pressable>
           </View>
           <View style={{marginBottom: 10}}>
-            <Input placeholder="Phone Number" keyboardType={'numeric'} />
+            <Input
+              onChangeText={text =>
+                setStates(prev => ({...prev, phone_number: text}))
+              }
+              value={states.phone_number}
+              placeholder="Phone Number"
+              keyboardType={'numeric'}
+            />
           </View>
           <View style={{marginBottom: 10}}>
-            <TextArea placeholder="Comment" />
+            <TextArea
+              placeholder="Comment"
+              value={states.question}
+              onChangeText={text =>
+                setStates(prev => ({...prev, question: text}))
+              }
+            />
           </View>
           <View style={{alignItems: 'flex-end'}}>
             <PressableInput
@@ -185,7 +185,7 @@ const AddQueryScreen = ({navigation}) => {
             />
           </View>
           <View>
-            <Button buttonText={'Add'} />
+            <Button buttonText={'Add'} onPress={addQuery} />
           </View>
         </AppContainer>
       </ScrollView>

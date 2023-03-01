@@ -77,7 +77,7 @@ const ProfileScreen = ({navigation}) => {
       return;
     }
     if (profile.phone_number.trim().length !== 10) {
-      ToastMessage('error', 'Validation Error', 'Mobile is required');
+      ToastMessage('error', 'Validation Error', 'Mobile is invalid');
       return;
     }
     setIsLoading(true);

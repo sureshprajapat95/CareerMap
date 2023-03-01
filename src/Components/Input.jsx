@@ -91,6 +91,8 @@ export const TextArea = ({
   placeholder,
   customText = false,
   numberOfLines = 4,
+  onChangeText,
+  value
 }) => {
   const [isActive, setIsActive] = React.useState(false);
   return (
@@ -132,6 +134,8 @@ export const TextArea = ({
         onBlur={() => setIsActive(prev => !prev)}
         multiline={true}
         numberOfLines={numberOfLines}
+        onChangeText={onChangeText}
+        value={value}
       />
     </Neomorph>
   );
