@@ -15,6 +15,7 @@ import Loader from '../Utils/Loader';
 
 const PlanScreen = ({navigation}) => {
   const [isLoading, setIsLoading] = React.useState(false);
+  const [plans, setPlans] = React.useState([]);
 
   useFocusEffect(
     React.useCallback(() => {
@@ -23,10 +24,14 @@ const PlanScreen = ({navigation}) => {
   );
 
   const getPlans = async () => {
+    setIsLoading(true);
     try {
       const response = await Call('getPlans', {});
+      setIsLoading(false);
       console.log(response.data);
+      setPlans(response.data.data);
     } catch (error) {
+      setIsLoading(false);
       console.log(error.response.status);
     }
   };
@@ -36,22 +41,28 @@ const PlanScreen = ({navigation}) => {
       id: 1,
       title: 'First Screen',
       description: 'First screen test description',
-      image: <AddQuery width={Device.width - 100} height={Device.width - 100} />,
-      backgroundColor: Colors.primary
+      image: (
+        <AddQuery width={Device.width - 100} height={Device.width - 100} />
+      ),
+      backgroundColor: Colors.primary,
     },
     {
       id: 2,
       title: 'Second Screen',
       description: 'Second screen test description',
-      image: <AddQuery width={Device.width - 100} height={Device.width - 100} />,
-      backgroundColor: Colors.primaryAlfa
+      image: (
+        <AddQuery width={Device.width - 100} height={Device.width - 100} />
+      ),
+      backgroundColor: Colors.primaryAlfa,
     },
     {
       id: 3,
       title: 'Third Screen',
       description: 'Third screen test description',
-      image: <AddQuery width={Device.width - 100} height={Device.width - 100} />,
-      backgroundColor: Colors.primary
+      image: (
+        <AddQuery width={Device.width - 100} height={Device.width - 100} />
+      ),
+      backgroundColor: Colors.primary,
     },
     /* {
       id: 4,
@@ -76,14 +87,14 @@ const PlanScreen = ({navigation}) => {
           show: false,
         }}
       />
-      <View style={{flex: 1,backgroundColor: Colors.lightdark1}}>
-        <AppContainer style={{paddingBottom: 0,flex: 0.5}}>
+      <View style={{flex: 1, backgroundColor: Colors.lightdark1}}>
+        <AppContainer style={{paddingBottom: 0, flex: 0.5}}>
           <View style={{alignItems: 'center', marginTop: 30}}>
             <Plans width={Device.width / 2.5} height={Device.width / 2.5} />
           </View>
         </AppContainer>
-        
-        <Plan SLIDES={Data} />
+
+        <Plan SLIDES={plans} />
       </View>
     </>
   );

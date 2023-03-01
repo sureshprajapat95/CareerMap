@@ -1,9 +1,11 @@
 import React, {useContext} from 'react';
+import {Alert} from 'react-native';
 import {AuthContext} from '../Context/auth-context';
 import {Colors} from '../Utils/Colors';
 import Hamburger from '../Utils/Icons/Hamburger';
 import Login from '../Utils/Icons/Login';
 import Logout from '../Utils/Icons/Logout';
+import Power from '../Utils/Icons/Power';
 import AppHeader from './AppHeader';
 
 function TabHeader({color = '', leftClick, navigation, title}) {
@@ -11,7 +13,14 @@ function TabHeader({color = '', leftClick, navigation, title}) {
 
   const handleRightClick = () => {
     if (isAuthenticated) {
-      logout();
+      Alert.alert('Logout', 'you will be logged out on confirm', [
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        {text: 'OK', onPress: () => logout()},
+      ]);
     } else {
       navigation.navigate('login');
     }
@@ -29,7 +38,7 @@ function TabHeader({color = '', leftClick, navigation, title}) {
         }}
         right={{
           show: true,
-          Icon: isAuthenticated ? Logout : Login,
+          Icon: isAuthenticated ? Power : Login,
           click: handleRightClick,
         }}
       />

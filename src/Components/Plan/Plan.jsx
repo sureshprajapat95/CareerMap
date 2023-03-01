@@ -20,12 +20,12 @@ const Plan = ({SLIDES}) => {
       <View style={{flex: 3}}>
         <FlatList
           data={SLIDES}
-          renderItem={({item}) => <PlanBox item={item} />}
+          keyExtractor={(item, index) => item._id}
+          renderItem={({item}) => <PlanBox key={item._id} item={item} />}
           horizontal
           pagingEnabled
           bounces={false}
           showsHorizontalScrollIndicator={false}
-          keyExtractor={item => item.id}
           onScroll={Animated.event(
             [{nativeEvent: {contentOffset: {x: scrollX}}}],
             {useNativeDriver: false},

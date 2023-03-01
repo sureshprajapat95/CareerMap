@@ -43,6 +43,10 @@ const API_BASE = {
     route: 'api/plan',
     method: 'GET',
   },
+  purchasePlan: {
+    route: 'student/acquire-plan',
+    method: 'GET',
+  },
 };
 
 export const Call = async (URL, payload = null, urlParam = '') => {

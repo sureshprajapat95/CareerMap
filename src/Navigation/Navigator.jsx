@@ -2,6 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React, {useContext} from 'react';
+import SplashScreen from 'react-native-splash-screen';
 import Toastify from '../Components/Toastify';
 import {AuthContext} from '../Context/auth-context';
 import AddQueryScreen from '../Screens/AddQueryScreen';
@@ -24,6 +25,7 @@ const Navigator = () => {
       const storedToken = await AsyncStorage.getItem('token');
       if (storedToken) {
         authCtx.authenticate(storedToken);
+        SplashScreen.hide();
       }
     }
     fetchToken();
