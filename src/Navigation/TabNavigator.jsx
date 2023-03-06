@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import QueryScreen from '../Screens/QueryScreen';
 import HomeScreen from '../Screens/HomeScreen';
@@ -11,22 +11,28 @@ import TabButton from './Tabbutton';
 import HistoryScreen from '../Screens/HistoryScreen';
 import PaymentScreen from '../Screens/PaymentScreen';
 import Rupee from '../Utils/Icons/Rupee';
-
-const tabsData = [
-  {route: 'Home', label: 'Home', icon: Home, component: HomeScreen},
-  {route: 'Query', label: 'Query', icon: Query, component: QueryScreen},
-  {route: 'History', label: 'History', icon: History, component: HistoryScreen},
-  {
-    route: 'payment',
-    label: 'Plans',
-    icon: Rupee,
-    component: PaymentScreen,
-  },
-];
-
+import HomeScreenNoLogin from '../Screens/HomeScreenNoLogin';
+import QueryNoLogin from '../Screens/QueryNoLogin';
+import PaymentScreenNoLogin from '../Screens/PaymentScreenNoLogin';
 
 const TabNavigator = () => {
   const Tab = createBottomTabNavigator();
+  const tabsData = [
+    {route: 'Home', label: 'Home', icon: Home, component: HomeScreen},
+    {route: 'Query', label: 'Query', icon: Query, component: QueryScreen},
+    {
+      route: 'History',
+      label: 'History',
+      icon: History,
+      component: HistoryScreen,
+    },
+    {
+      route: 'payment',
+      label: 'Plans',
+      icon: Rupee,
+      component: PaymentScreen,
+    },
+  ];
 
   return (
     <Tab.Navigator
@@ -38,7 +44,62 @@ const TabNavigator = () => {
           left: 10,
           right: 10,
           borderRadius: 10,
-          backgroundColor: Colors.primaryAlfa
+          backgroundColor: Colors.primaryAlfa,
+        },
+        headerShown: false,
+      }}>
+      {tabsData.map((item, index) => {
+        return (
+          <Tab.Screen
+            key={index}
+            name={item.route}
+            component={item.component}
+            options={{
+              tabBarShowLabel: false,
+              tabBarButton: props => <TabButton {...props} item={item} />,
+            }}
+          />
+        );
+      })}
+    </Tab.Navigator>
+  );
+};
+
+export const TabNavNoLogin = () => {
+  const Tab = createBottomTabNavigator();
+  const tabsData = [
+    {
+      route: 'HomeNoLogin',
+      label: 'Home',
+      icon: Home,
+      component: HomeScreenNoLogin,
+    },
+    {route: 'Query', label: 'Query', icon: Query, component: QueryNoLogin},
+    {
+      route: 'History',
+      label: 'History',
+      icon: History,
+      component: HistoryScreen,
+    },
+    {
+      route: 'payment',
+      label: 'Plans',
+      icon: Rupee,
+      component: PaymentScreenNoLogin,
+    },
+  ];
+
+  return (
+    <Tab.Navigator
+      screenOptions={{
+        tabBarStyle: {
+          height: 70,
+          position: 'absolute',
+          bottom: 10,
+          left: 10,
+          right: 10,
+          borderRadius: 10,
+          backgroundColor: Colors.primaryAlfa,
         },
         headerShown: false,
       }}>

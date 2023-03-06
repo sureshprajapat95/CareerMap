@@ -4,7 +4,6 @@ import {AuthContext} from '../Context/auth-context';
 import {Colors} from '../Utils/Colors';
 import Hamburger from '../Utils/Icons/Hamburger';
 import Login from '../Utils/Icons/Login';
-import Logout from '../Utils/Icons/Logout';
 import Power from '../Utils/Icons/Power';
 import AppHeader from './AppHeader';
 

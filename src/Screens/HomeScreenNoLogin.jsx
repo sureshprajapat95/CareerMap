@@ -1,3 +1,4 @@
+//HomeScreenNoLogin
 import React, {useContext} from 'react';
 import {View, ScrollView} from 'react-native';
 import {WebView} from 'react-native-webview';
@@ -5,16 +6,31 @@ import {Device} from '../Utils/DeviceDimensions';
 import {ButtonHalfWidth} from '../Components/Button';
 import TabHeader from '../Components/TabHeader';
 import {AuthContext} from '../Context/auth-context';
+import Login from '../Utils/Icons/Login';
+import AppHeader from '../Components/AppHeader';
+import { Colors } from '../Utils/Colors';
+import Hamburger from '../Utils/Icons/Hamburger';
 
-const HomeScreen = ({navigation}) => {
+const HomeScreenNoLogin = ({navigation}) => {
   const {token} = useContext(AuthContext);
+
+  const handleRightClick = () => {
+      navigation.navigate('login');
+  };
 
   return (
     <>
-      <TabHeader
-        leftClick={() => navigation.openDrawer()}
-        navigation={navigation}
-        title={'Home'}
+      <AppHeader
+        style={{backgroundColor: Colors.light}}
+        middleText={'Home'}
+        left={{
+          show: false,
+        }}
+        right={{
+          show: true,
+          Icon: Login,
+          click: handleRightClick,
+        }}
       />
       <ScrollView
         style={{
@@ -68,30 +84,4 @@ const HomeScreen = ({navigation}) => {
   );
 };
 
-export default HomeScreen;
-
-{
-  /* 
-  const [buttonType, setButtonType] = React.useState(false);
-  <Pressable
-        onPressIn={() => {
-          console.log('a'), setButtonType(prev => !prev);
-        }}
-        onPressOut={() => {
-          console.log('a'), setButtonType(prev => !prev);
-        }}>
-        <Neomorph
-          inner={buttonType}
-          style={{
-            shadowRadius: 5,
-            borderRadius: 250,
-            backgroundColor: '#eee',
-            width: 150,
-            height: 150,
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>
-          <Text>Home</Text>
-        </Neomorph>
-      </Pressable> */
-}
+export default HomeScreenNoLogin;

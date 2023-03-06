@@ -15,13 +15,15 @@ import {useFocusEffect} from '@react-navigation/native';
 import Loader from '../Utils/Loader';
 import {Neomorph} from 'react-native-neomorph-shadows';
 import Tick from '../Utils/Icons/Tick';
-import { Call } from '../Service/Api';
+import {Call} from '../Service/Api';
+import AppHeader from '../Components/AppHeader';
+import Login from '../Utils/Icons/Login';
 
-const PaymentScreen = ({navigation}) => {
+const PaymentScreenNoLogin = ({navigation}) => {
   const {isAuthenticated} = useContext(AuthContext);
   const [isLoading, setIsLoading] = React.useState(false);
   const [plans, setPlans] = React.useState([]);
-  const [states,setStates] = React.useState({coupon: '',student_id: '',});
+  const [states, setStates] = React.useState({coupon: '', student_id: ''});
 
   /* useFocusEffect(
     React.useCallback(() => {
@@ -45,19 +47,33 @@ const PaymentScreen = ({navigation}) => {
   const applyCoupon = async () => {
     console.log(states);
     // return
-    let payload = {student_id:'62ded2c9176c19c8b589d568', coupon: states.coupon, plan: 1, payment_mode: 1};
+    let payload = {
+      student_id: '62ded2c9176c19c8b589d568',
+      coupon: states.coupon,
+      plan: 1,
+      payment_mode: 1,
+    };
     const response = await Call('purchasePlan', payload);
     console.log(response.data);
+  };
+  const handleRightClick = () => {
+    navigation.navigate('login');
   };
 
   return (
     <>
       <Loader visible={isLoading} />
-      <TabHeader
-        leftClick={() => navigation.openDrawer()}
-        navigation={navigation}
-        title={'Plans'}
-        color={isAuthenticated ? Colors.backgroundColor : Colors.light}
+      <AppHeader
+        style={{backgroundColor: Colors.light}}
+        middleText={'Home'}
+        left={{
+          show: false,
+        }}
+        right={{
+          show: true,
+          Icon: Login,
+          click: handleRightClick,
+        }}
       />
       {isAuthenticated ? (
         <ScrollView style={{flex: 1}}>
@@ -76,7 +92,9 @@ const PaymentScreen = ({navigation}) => {
                   placeholder="Coupon code"
                   style={{width: (Device.width * 2) / 3}}
                   value={states.coupon}
-                  onChangeText={coupon=>setStates(prev=>({...prev,coupon}))}
+                  onChangeText={coupon =>
+                    setStates(prev => ({...prev, coupon}))
+                  }
                 />
                 <Button
                   icon={<ChevronRight fill={Colors.light} />}
@@ -220,7 +238,7 @@ const PaymentScreen = ({navigation}) => {
   );
 };
 
-export default PaymentScreen;
+export default PaymentScreenNoLogin;
 
 const styles = StyleSheet.create({
   container: {
