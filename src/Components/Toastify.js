@@ -1,36 +1,40 @@
 
-import Toast, {BaseToast, ErrorToast,SuccessToast} from 'react-native-toast-message';
+import Toast, {ErrorToast,SuccessToast} from 'react-native-toast-message';
 import { Colors } from '../Utils/Colors';
+import { Device } from '../Utils/DeviceDimensions';
 import { Fonts } from '../Utils/Fonts';
 
 const toastConfig = {
   success: props => (
     <SuccessToast
       {...props}
-      style={{borderLeftColor: Colors.green}}
+      style={{borderLeftColor: Colors.green,height: 70,borderRadius: 10,width: Device.width - 20}}
       text1Style={{
-        fontSize: 20,
+        fontSize: 18,
         fontFamily: Fonts.Bold,
       }}
       text2Style={{
         fontSize: 15,
         fontFamily: Fonts.Medium,
       }}
+      text2NumberOfLines={2}
     />
   ),
   error: props => (
     <ErrorToast
       {...props}
-      style={{borderLeftColor: Colors.error,borderRadius: 10}}
+      style={{borderLeftColor: Colors.error,borderRadius: 10,height: 70,width: Device.width - 20}}
       text1Style={{
-        fontSize: 20,
-        fontFamily: Fonts.Bold,
+        fontSize: 18,
+        fontFamily: Fonts.Medium,
         color: Colors.dark,
       }}
       text2Style={{
         fontSize: 15,
-        fontFamily: Fonts.Medium,
+        fontFamily: Fonts.Regular,
+        fontWeight: 'normal'
       }}
+      text2NumberOfLines={2}
     />
   ),
 };

@@ -14,6 +14,7 @@ function AuthContextProvider({children}) {
 
   async function authenticate(token) {
     await AsyncStorage.setItem('token', token);
+    await AsyncStorage.setItem('data_user', token);
     setAuthToken(token);
     return true;
   }

@@ -28,7 +28,7 @@ const API_BASE = {
     method: 'GET',
   },
   queryAdd: {
-    route: 'api/query',
+    route: 'api/query/',
     method: 'POST',
   },
   getQuery: {
@@ -44,31 +44,45 @@ const API_BASE = {
     method: 'GET',
   },
   purchasePlan: {
-    route: 'student/acquire-plan',
+    route: 'api/student/acquire-plan',
+    method: 'GET',
+  },
+  dropDown: {
+    route: 'api/index/app-sources',
+    method: 'GET',
+  },
+  popupData: {
+    route: 'api/index/app-defaults',
     method: 'GET',
   },
 };
 
 export const Call = async (URL, payload = null, urlParam = '') => {
   const storedToken = await AsyncStorage.getItem('token');
-  console.log(urlParam)
+  console.log(urlParam);
   let data = {};
   let headers = {};
-  if (storedToken) {
-    headers = {AUTHORIZATION: `Bearer ${storedToken}`};
+  if (storedToken && URL != 'popupData') {
+    headers = {
+      AUTHORIZATION: `Bearer ${storedToken}`,
+      'Content-Type': 'multipart/form-data',
+    };
   }
   if (payload) {
     data = {
       ...payload,
     };
   }
-  console.log(API_BASE.baseURL + API_BASE[URL].route + '/' + urlParam, data, headers);
+  console.log(
+    API_BASE.baseURL + API_BASE[URL].route + '/' + urlParam,
+    data,
+    headers,
+  );
   const response = axios({
     method: API_BASE[URL].method,
     url: API_BASE.baseURL + API_BASE[URL].route + '/' + urlParam,
     data,
     headers,
   });
-
   return response;
 };

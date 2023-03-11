@@ -1,15 +1,15 @@
 import React, {useContext} from 'react';
 import {ScrollView, Text, View} from 'react-native';
-import AppContainer from '../Components/AppContainer';
-import AppHeader from '../Components/AppHeader';
-import Button from '../Components/Button';
-import NoLogin from '../Components/NoLogin';
-import {AuthContext} from '../Context/auth-context';
-import {Colors} from '../Utils/Colors';
-import {Device} from '../Utils/DeviceDimensions';
-import {Fonts} from '../Utils/Fonts';
-import Login from '../Utils/Icons/Login';
-import History from '../Utils/Illustrations/History';
+import AppContainer from '../../Components/AppContainer';
+import AppHeader from '../../Components/AppHeader';
+import Button from '../../Components/Button';
+import NoLogin from '../../Components/NoLogin';
+import {AuthContext} from '../../Context/auth-context';
+import {Colors} from '../../Utils/Colors';
+import {Device} from '../../Utils/DeviceDimensions';
+import {Fonts} from '../../Utils/Fonts';
+import Login from '../../Utils/Icons/Login';
+import History from '../../Utils/Illustrations/History';
 
 const HistoryScreenNoLogin = ({navigation}) => {
   const {isAuthenticated} = useContext(AuthContext);

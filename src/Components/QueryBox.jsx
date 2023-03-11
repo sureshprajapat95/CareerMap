@@ -12,20 +12,6 @@ import Message from '../Utils/Icons/Message';
 
 const QueryBox = ({data, onPress}) => {
   const [pressed, setPressed] = React.useState(false);
-  let obj = {
-    __v: 0,
-    _id: '62e0e65770c0cdc187763bf3',
-    createdAt: '2022-07-27T07:16:39.732Z',
-    filePath: '/api/query/62e0e65770c0cdc187763bf3/download',
-    phone_number: '1231234565',
-    question: 'looks great',
-    repliedBy: '62de8a586bc6df5851f38552',
-    reply: 'NA',
-    status: 'cancelled',
-    type: 'query',
-    updatedAt: '2022-07-27T08:12:38.608Z',
-    user: '62ded2c9176c19c8b589d568',
-  };
 
   return (
     <Pressable
@@ -85,7 +71,7 @@ const QueryBox = ({data, onPress}) => {
                 badgeStyle={{
                   width: Device.width / 5,
                   backgroundColor:
-                    data.status == 'open' ? Colors.primary : Colors.lightdark,
+                    data.status == 'open' ? Colors.primary : (data.status == 'booked' ? Colors.green : Colors.lightdark),
                 }}
               />
             </View>

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Pressable, ScrollView, Text, View} from 'react-native';
+import {Pressable, ScrollView, Text, View, StyleSheet} from 'react-native';
 import {DateTimePickerAndroid} from '@react-native-community/datetimepicker';
 import CheckBox from '@react-native-community/checkbox';
 import AppContainer from '../Components/AppContainer';
@@ -19,7 +19,9 @@ import {Device} from '../Utils/DeviceDimensions';
 import {ToastMessage} from '../Components/Toastify';
 import {Call} from '../Service/Api';
 import Loader from '../Utils/Loader';
-import { Fonts } from '../Utils/Fonts';
+import {Fonts} from '../Utils/Fonts';
+import {useFocusEffect} from '@react-navigation/native';
+import {Dropdown} from 'react-native-element-dropdown';
 
 const INITIAL_STATE = {
   first_name: '',
@@ -34,10 +36,59 @@ const INITIAL_STATE = {
   device_type: 'android',
 };
 
+const data = [
+  {label: 'Item 1', value: '1'},
+  {label: 'Item 2', value: '2'},
+  {label: 'Item 3', value: '3'},
+  {label: 'Item 4', value: '4'},
+  {label: 'Item 5', value: '5'},
+  {label: 'Item 6', value: '6'},
+  {label: 'Item 7', value: '7'},
+  {label: 'Item 8', value: '8'},
+];
+
 const SignUpScreen = ({navigation}) => {
   const [states, setStates] = React.useState(INITIAL_STATE);
   const [toggleCheckBox, setToggleCheckBox] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
+  const [dropD, setDropD] = React.useState([]);
+  const [isFocus, setIsFocus] = React.useState(false);
+  const [value, setValue] = React.useState(null);
+  const [focusStates, setFocusStates] = React.useState({
+    current_standard: false,
+    occupation: false,
+  });
+
+  useFocusEffect(
+    React.useCallback(() => {
+      getDropDownData();
+    }, []),
+  );
+
+  const getDropDownData = async () => {
+    setIsLoading(true);
+    try {
+      const resp = await Call('dropDown', {});
+      setIsLoading(false);
+      if (resp.status) {
+        const drpdata = resp.data.data.map((item, index) => {
+          return {label: item.name, value: item.id};
+        });
+        setDropD(drpdata);
+        console.log(drpdata);
+      }
+    } catch (err) {
+      setIsLoading(false);
+      console.log(err.response.data);
+    }
+  };
+
+  const renderLabel = label => {
+    if (value || isFocus) {
+      return <Text style={[isFocus && {color: Colors.primary}]}>{label}</Text>;
+    }
+    return null;
+  };
 
   const handleGender = type => {
     setStates(prev => {
@@ -85,7 +136,7 @@ const SignUpScreen = ({navigation}) => {
       setIsLoading(false);
       console.log(error.response.status);
       console.log(error.response.data);
-      ToastMessage('error','Error',error.response.data.message);
+      ToastMessage('error', 'Error', error.response.data.message);
     }
   };
 
@@ -125,7 +176,13 @@ const SignUpScreen = ({navigation}) => {
             <SignUp width={Device.width / 1.5} height={Device.width / 1.5} />
           </View>
           <View style={{marginTop: 20}}>
-            <Text style={{fontSize: 20, fontWeight: '600', color: Colors.dark,fontFamily: Fonts.Medium}}>
+            <Text
+              style={{
+                fontSize: 20,
+                fontWeight: '600',
+                color: Colors.dark,
+                fontFamily: Fonts.Medium,
+              }}>
               Register with below details
             </Text>
             <View style={{marginTop: 20}}>
@@ -177,7 +234,7 @@ const SignUpScreen = ({navigation}) => {
                     fontSize: 18,
                     fontWeight: '600',
                     marginBottom: 10,
-                    fontFamily: Fonts.Medium
+                    fontFamily: Fonts.Medium,
                   }}>
                   Gender
                 </Text>
@@ -269,16 +326,94 @@ const SignUpScreen = ({navigation}) => {
                 }}
                 iconRight={<Calendar width="25px" height="25px" />}
               />
-              <PressableInput
-                placeholder={'Current Standart'}
-                onPress={() => null}
-                iconRight={<ChevronRight width="18px" height="18px" />}
-              />
-              <PressableInput
+
+              <Neomorph
+                inner={false}
+                style={{
+                  shadowRadius: 5,
+                  borderRadius: 35,
+                  backgroundColor: Colors.backgroundColor,
+                  width: Device.width - 50,
+                  height: 50,
+                  justifyContent: 'center',
+                  position: 'relative',
+                  marginBottom: 20,
+                  paddingHorizontal: 30,
+                }}>
+                <Dropdown
+                  style={[isFocus && {borderColor: Colors.primary}]}
+                  placeholderStyle={{}}
+                  selectedTextStyle={{fontSize: 14}}
+                  inputSearchStyle={{}}
+                  iconStyle={{}}
+                  data={dropD}
+                  search
+                  maxHeight={300}
+                  labelField="label"
+                  valueField="value"
+                  placeholder={'Current Standart'}
+                  searchPlaceholder="Search..."
+                  value={states.current_standard}
+                  onFocus={() =>
+                    setFocusStates(prev => ({...prev, current_standard: true}))
+                  }
+                  onBlur={() =>
+                    setFocusStates(prev => ({...prev, current_standard: false}))
+                  }
+                  onChange={item => {
+                    setStates(prev => ({...prev,current_standard: item.value}));
+                    setFocusStates(prev => ({...prev, current_standard: false}))
+                  }}
+                  renderLeftIcon={null}
+                />
+              </Neomorph>
+              {/* <PressableInput
                 placeholder={'Select Destination/Aim Occupation'}
                 onPress={() => null}
                 iconRight={<ChevronRight width="18px" height="18px" />}
-              />
+              /> */}
+              <Neomorph
+                inner={false}
+                style={{
+                  shadowRadius: 5,
+                  borderRadius: 35,
+                  backgroundColor: Colors.backgroundColor,
+                  width: Device.width - 50,
+                  height: 50,
+                  justifyContent: 'center',
+                  position: 'relative',
+                  marginBottom: 20,
+                  paddingHorizontal: 30,
+                }}>
+                <Dropdown
+                  style={[isFocus && {borderColor: Colors.primary}]}
+                  placeholderStyle={{}}
+                  selectedTextStyle={{fontSize: 14}}
+                  inputSearchStyle={{}}
+                  iconStyle={{}}
+                  data={dropD}
+                  search
+                  maxHeight={300}
+                  labelField="label"
+                  valueField="value"
+                  placeholder={
+                    !isFocus ? 'Select Destination/Aim Occupation' : ''
+                  }
+                  searchPlaceholder="Search..."
+                  value={states.occupation}
+                  onFocus={() =>
+                    setFocusStates(prev => ({...prev, occupation: true}))
+                  }
+                  onBlur={() =>
+                    setFocusStates(prev => ({...prev, occupation: false}))
+                  }
+                  onChange={item => {
+                    setStates(prev => ({...prev,occupation: item.value}));
+                    setFocusStates(prev => ({...prev, occupation: false}))
+                  }}
+                  renderLeftIcon={null}
+                />
+              </Neomorph>
               <View
                 style={{
                   flexDirection: 'row',
@@ -319,7 +454,7 @@ const SignUpScreen = ({navigation}) => {
                     fontSize: 18,
                     fontWeight: '600',
                     color: Colors.dark,
-                    fontFamily: Fonts.Bold
+                    fontFamily: Fonts.Bold,
                   }}>
                   Already have an Account?
                 </Text>
@@ -329,7 +464,7 @@ const SignUpScreen = ({navigation}) => {
                     fontSize: 18,
                     fontWeight: '600',
                     paddingLeft: 10,
-                    fontFamily: Fonts.Bold
+                    fontFamily: Fonts.Bold,
                   }}>
                   Sign in
                 </Text>
@@ -355,7 +490,7 @@ const SignUpScreen = ({navigation}) => {
                       fontSize: 18,
                       fontWeight: '600',
                       color: Colors.dark,
-                      fontFamily: Fonts.Bold
+                      fontFamily: Fonts.Bold,
                     }}>
                     Mentors
                   </Text>
@@ -366,7 +501,7 @@ const SignUpScreen = ({navigation}) => {
                       fontSize: 17,
                       fontWeight: '400',
                       color: Colors.dark,
-                      fontFamily: Fonts.Medium
+                      fontFamily: Fonts.Medium,
                     }}>
                     Free mentoring per week
                   </Text>
@@ -384,7 +519,7 @@ const SignUpScreen = ({navigation}) => {
                       fontSize: 18,
                       fontWeight: '600',
                       color: Colors.dark,
-                      fontFamily: Fonts.Bold
+                      fontFamily: Fonts.Bold,
                     }}>
                     Remote Learning
                   </Text>
@@ -402,7 +537,7 @@ const SignUpScreen = ({navigation}) => {
                       fontSize: 18,
                       fontWeight: '600',
                       color: Colors.dark,
-                      fontFamily: Fonts.Bold
+                      fontFamily: Fonts.Bold,
                     }}>
                     Unlimited counseling
                   </Text>
@@ -413,7 +548,7 @@ const SignUpScreen = ({navigation}) => {
                       fontSize: 17,
                       fontWeight: '400',
                       color: Colors.dark,
-                      fontFamily: Fonts.Medium
+                      fontFamily: Fonts.Medium,
                     }}>
                     From India's best Counselors
                   </Text>
@@ -431,7 +566,7 @@ const SignUpScreen = ({navigation}) => {
                       fontSize: 18,
                       fontWeight: '600',
                       color: Colors.dark,
-                      fontFamily: Fonts.Bold
+                      fontFamily: Fonts.Bold,
                     }}>
                     Specialised English Communication
                   </Text>
@@ -442,7 +577,7 @@ const SignUpScreen = ({navigation}) => {
                       fontSize: 17,
                       fontWeight: '400',
                       color: Colors.dark,
-                      fontFamily: Fonts.Medium
+                      fontFamily: Fonts.Medium,
                     }}>
                     session
                   </Text>
@@ -460,7 +595,7 @@ const SignUpScreen = ({navigation}) => {
                       fontSize: 18,
                       fontWeight: '600',
                       color: Colors.dark,
-                      fontFamily: Fonts.Bold
+                      fontFamily: Fonts.Bold,
                     }}>
                     Watch videos
                   </Text>
@@ -471,7 +606,7 @@ const SignUpScreen = ({navigation}) => {
                       fontSize: 17,
                       fontWeight: '400',
                       color: Colors.dark,
-                      fontFamily: Fonts.Medium
+                      fontFamily: Fonts.Medium,
                     }}>
                     1000+ hours of engages videos containing all syllabus
                   </Text>
@@ -489,7 +624,7 @@ const SignUpScreen = ({navigation}) => {
                       fontSize: 18,
                       fontWeight: '600',
                       color: Colors.dark,
-                      fontFamily: Fonts.Bold
+                      fontFamily: Fonts.Bold,
                     }}>
                     Career Maps
                   </Text>
@@ -500,7 +635,7 @@ const SignUpScreen = ({navigation}) => {
                       fontSize: 17,
                       fontWeight: '400',
                       color: Colors.dark,
-                      fontFamily: Fonts.Medium
+                      fontFamily: Fonts.Medium,
                     }}>
                     400+ Careers on one platform
                   </Text>
@@ -515,3 +650,42 @@ const SignUpScreen = ({navigation}) => {
 };
 
 export default SignUpScreen;
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: 'white',
+    padding: 16,
+  },
+  dropdown: {
+    height: 50,
+    borderColor: 'gray',
+    borderWidth: 0.5,
+    borderRadius: 8,
+    paddingHorizontal: 8,
+  },
+  icon: {
+    marginRight: 5,
+  },
+  label: {
+    position: 'absolute',
+    backgroundColor: 'white',
+    left: 22,
+    top: 8,
+    zIndex: 999,
+    paddingHorizontal: 8,
+    fontSize: 14,
+  },
+  placeholderStyle: {
+    fontSize: 16,
+  },
+  selectedTextStyle: {
+    fontSize: 16,
+  },
+  iconStyle: {
+    width: 20,
+    height: 20,
+  },
+  inputSearchStyle: {
+    height: 40,
+    fontSize: 16,
+  },
+});

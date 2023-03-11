@@ -14,6 +14,8 @@ import DocumentPicker from 'react-native-document-picker';
 import {Call} from '../Service/Api';
 import Message from '../Utils/Icons/Message';
 import Counsellor from '../Utils/Icons/Counsellor';
+import Loader from '../Utils/Loader';
+import { ToastMessage } from '../Components/Toastify';
 
 const INITIAL_STATE = {
   phone_number: '',
@@ -23,6 +25,7 @@ const INITIAL_STATE = {
 
 const AddQueryScreen = ({navigation}) => {
   const [states, setStates] = React.useState(INITIAL_STATE);
+  const [isLoading,setIsLoading] = React.useState(false);
   const handleType = type => {
     setStates(prev => {
       return {...prev, type: type};
@@ -40,7 +43,7 @@ const AddQueryScreen = ({navigation}) => {
         name: result[0].name,
         contentType: result[0].type,
       };
-      setStates(prev => ({...prev, file: fileObj}));
+      setStates(prev => ({...prev, file: result}));
     } catch (err) {
       if (DocumentPicker.isCancel(err)) {
       } else {
@@ -48,12 +51,56 @@ const AddQueryScreen = ({navigation}) => {
     }
   }
 
-  const addQuery = () => {
-    Call('queryAdd', {...states})
-      .then(response => {
+  const addQuery = async () => {
+    if(Object.keys(states).length === 0) {
+      ToastMessage('error','Error','Please fill all details and then try to add query.')
+      return;
+    }
+    console.log(states)
+    if(states.type == '') {
+      ToastMessage('error','Error','Select a type for query.')
+      return;
+    }
+    if(states.phone_number == '') {
+      ToastMessage('error','Error','Please enter a phone number')
+      return;
+    }
+    if(states.phone_number.length !== 10) {
+      ToastMessage('error','Error','Please enter a correct phone number')
+      return;
+    }
+    if(states.question == '') {
+      ToastMessage('error','Error','Please enter a question')
+      return;
+    }
+    let payload;
+    if(states.file !== undefined){
+      payload = new FormData();
+      payload.append('phone_number',states.phone_number);
+      payload.append('type',states.type);
+      payload.append('question',states.question);
+      payload.append('file',states.file[0]);
+      console.log(payload);/* return; */
+    }else{
+      payload = {...states};
+    }
+    try{
+      setIsLoading(true)
+      const response = await Call('queryAdd', payload);
+      setIsLoading(false);
+      ToastMessage('success','Success',response.data.message)
+      console.log(response.data)
+      setStates({});
+    }catch(err){
+      setIsLoading(false)
+      ToastMessage('error','Error',response.data.message)
+      console.log(JSON.stringify(err));
+    }
+    
+    /*   .then(response => {
         console.log(response.data);
       })
-      .catch(err => console.log(err.response.data));
+      .catch(err => console.log(err.response.data)); */
   };
 
   return (
@@ -69,6 +116,7 @@ const AddQueryScreen = ({navigation}) => {
           show: false,
         }}
       />
+      <Loader visible={isLoading} />
       <ScrollView style={{backgroundColor: Colors.backgroundColor}}>
         <View style={{alignItems: 'center'}}>
           <AddQuery width={Device.width / 2} height={Device.width / 2} />

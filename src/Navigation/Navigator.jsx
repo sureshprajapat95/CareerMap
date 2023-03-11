@@ -7,6 +7,7 @@ import Toastify from '../Components/Toastify';
 import {AuthContext} from '../Context/auth-context';
 import AddQueryScreen from '../Screens/AddQueryScreen';
 import HomeScreen from '../Screens/HomeScreen';
+import InfoScreen from '../Screens/InfoScreen';
 import LoginScreen from '../Screens/LoginScreen';
 import OTPScreen from '../Screens/OTPScreen';
 import PaymentScreen from '../Screens/PaymentScreen';
@@ -65,9 +66,10 @@ const Navigator = () => {
             <Stack.Screen name="webopener" component={UrlOpenerScreen} />
             <Stack.Screen name="payment" component={PaymentScreen} />
             <Stack.Screen name="Profile" component={ProfileScreen} />
-            <Stack.Screen name="Plans" component={PlanScreen} />
+            {/* <Stack.Screen name="Plans" component={PlanScreen} /> */}
           </>
         )}
+        <Stack.Screen name="Info" component={InfoScreen} />
       </Stack.Navigator>
       <Toastify />
     </NavigationContainer>

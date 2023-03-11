@@ -5,7 +5,7 @@ import {
   DrawerItemList,
 } from '@react-navigation/drawer';
 import React from 'react';
-import {Text, View} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import Button from '../Components/Button';
 import Hamburger from '../Utils/Icons/Hamburger';
 import Home from '../Utils/Icons/Home';
@@ -18,6 +18,7 @@ import User from '../Utils/Icons/User';
 import {Fonts} from '../Utils/Fonts';
 import Badge from '../Components/Badge';
 import ProfileIcon from '../Utils/Icons/ProfileIcon';
+import {Device} from '../Utils/DeviceDimensions';
 
 const Drawer = createDrawerNavigator();
 
@@ -86,7 +87,7 @@ function CustomDrawerContent(props) {
           paddingBottom: 30,
           paddingHorizontal: 20,
           borderBottomEndRadius: 40,
-          borderBottomLeftRadius: 40
+          borderBottomLeftRadius: 40,
         }}>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <View>
@@ -137,10 +138,42 @@ function CustomDrawerContent(props) {
       />
       <DrawerItem
         label="About App"
-        onPress={null}
+        onPress={() => props.navigation.navigate('Info')}
         icon={() => <Info width="20px" height="20px" />}
         labelStyle={{marginLeft: -20}}
       />
     </DrawerContentScrollView>
   );
 }
+
+const styles = StyleSheet.create({
+  modalBackground: {
+    flex: 1,
+    alignItems: 'center',
+    flexDirection: 'column',
+    justifyContent: 'space-around',
+    backgroundColor: '#rgba(0, 0, 0, 0.5)',
+    zIndex: 1000,
+  },
+  activityIndicatorWrapper: {
+    backgroundColor: '#FFFFFF',
+    height: Device.width - 50,
+    width: Device.width - 50,
+    borderRadius: 20,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+  },
+  animation: {
+    width: 100,
+    height: 100,
+  },
+  close: {
+    position: 'absolute',
+    top: -10,
+    right: -10,
+    backgroundColor: Colors.backgroundColor,
+    borderRadius: 20,
+    padding: 5,
+  },
+});

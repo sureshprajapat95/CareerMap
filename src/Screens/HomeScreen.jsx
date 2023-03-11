@@ -2,12 +2,23 @@ import React, {useContext} from 'react';
 import {View, ScrollView} from 'react-native';
 import {WebView} from 'react-native-webview';
 import {Device} from '../Utils/DeviceDimensions';
-import {ButtonHalfWidth} from '../Components/Button';
+import Button, {ButtonHalfWidth} from '../Components/Button';
 import TabHeader from '../Components/TabHeader';
 import {AuthContext} from '../Context/auth-context';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const HomeScreen = ({navigation}) => {
   const {token} = useContext(AuthContext);
+
+  React.useEffect(() => {
+    getInfo();
+  }, []);
+
+  const getInfo = async () => {
+    const res = await AsyncStorage.getItem('data_user');
+    console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>');
+    console.log(res);
+  };
 
   return (
     <>
@@ -35,29 +46,39 @@ const HomeScreen = ({navigation}) => {
         {token ? (
           <View
             style={{
-              flex: 1,
+              flexDirection: 'row',
+              paddingHorizontal: 10,
+              paddingTop: 20,
+              paddingBottom: 105,
             }}>
+            <View style={{flex: 1}}>
+              <Button
+                buttonText={'Career Path Finder'}
+                buttonStyle={{width: Device.width / 2}}
+                onPress={() =>
+                  navigation.navigate('webopener', {
+                    uri: `https://careermaps.live/career-path-finder?caller=app&token=${token}`,
+                    title: 'Career Path Finder',
+                  })
+                }
+              />
+            </View>
             <View
               style={{
-                flexDirection: 'row',
                 flex: 1,
-                marginTop: 20,
-                height: (Device.height * 2) / 7,
-                alignItems: 'baseline',
-                justifyContent: 'space-evenly',
+                justifyContent: 'flex-end',
+                alignItems: 'flex-end',
               }}>
-              <ButtonHalfWidth
-                buttonText={'Career Path Finder'}
-                onPress={() => {
-                  console.log(token),
-                    navigation.navigate('webopener', {
-                      uri: `https://careermaps.live/career-path-finder?caller=app&token=${token}`,
-                      title: 'Career Path Finder',
-                    });
-                }}
-                style={{marginRight: 10}}
+              <Button
+                buttonText={'Rank'}
+                buttonStyle={{width: Device.width / 2.5}}
+                onPress={() =>
+                  navigation.navigate('webopener', {
+                    uri: `https://careermaps.live/rank?caller=app&token=${token}`,
+                    title: 'Rank',
+                  })
+                }
               />
-              <ButtonHalfWidth buttonText={'Rank'} onPress={null} />
             </View>
           </View>
         ) : (
@@ -69,29 +90,3 @@ const HomeScreen = ({navigation}) => {
 };
 
 export default HomeScreen;
-
-{
-  /* 
-  const [buttonType, setButtonType] = React.useState(false);
-  <Pressable
-        onPressIn={() => {
-          console.log('a'), setButtonType(prev => !prev);
-        }}
-        onPressOut={() => {
-          console.log('a'), setButtonType(prev => !prev);
-        }}>
-        <Neomorph
-          inner={buttonType}
-          style={{
-            shadowRadius: 5,
-            borderRadius: 250,
-            backgroundColor: '#eee',
-            width: 150,
-            height: 150,
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>
-          <Text>Home</Text>
-        </Neomorph>
-      </Pressable> */
-}

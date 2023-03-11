@@ -1,4 +1,4 @@
-import {ScrollView, View, Text, StyleSheet} from 'react-native';
+import {ScrollView, View, Text, StyleSheet, Pressable} from 'react-native';
 import React, {useContext} from 'react';
 import AppContainer from '../Components/AppContainer';
 import Input from '../Components/Input';
@@ -13,28 +13,33 @@ import {Colors} from '../Utils/Colors';
 import {Fonts} from '../Utils/Fonts';
 import {useFocusEffect} from '@react-navigation/native';
 import Loader from '../Utils/Loader';
+import {Call} from '../Service/Api';
 import {Neomorph} from 'react-native-neomorph-shadows';
 import Tick from '../Utils/Icons/Tick';
-import { Call } from '../Service/Api';
 
 const PaymentScreen = ({navigation}) => {
   const {isAuthenticated} = useContext(AuthContext);
   const [isLoading, setIsLoading] = React.useState(false);
   const [plans, setPlans] = React.useState([]);
-  const [states,setStates] = React.useState({coupon: '',student_id: '',});
+  const [states, setStates] = React.useState({coupon: '', student_id: ''});
+  const [selectedPlan, setSelectedPlan] = React.useState({
+    coupon: '',
+    student_id: '',
+  });
+  const [paymentType, setPaymentType] = React.useState('');
 
-  /* useFocusEffect(
+  useFocusEffect(
     React.useCallback(() => {
       getPlans();
     }, []),
-  ); */
+  );
 
   const getPlans = async () => {
     setIsLoading(true);
     try {
       const response = await Call('getPlans', {});
       setIsLoading(false);
-      console.log(response.data);
+      console.log(response.data.data);
       setPlans(response.data.data);
     } catch (error) {
       setIsLoading(false);
@@ -45,9 +50,36 @@ const PaymentScreen = ({navigation}) => {
   const applyCoupon = async () => {
     console.log(states);
     // return
-    let payload = {student_id:'62ded2c9176c19c8b589d568', coupon: states.coupon, plan: 1, payment_mode: 1};
-    const response = await Call('purchasePlan', payload);
-    console.log(response.data);
+    try {
+      setIsLoading(true);
+      let payload = {
+        student_id: '62ded2c9176c19c8b589d568',
+        coupon: states.coupon,
+        plan: '',
+        payment_mode: '',
+      };
+      const response = await Call('purchasePlan', payload);
+      setIsLoading(false);
+      console.log(response.data);
+    } catch (err) {
+      setIsLoading(false);
+      console.log(err.response.data);
+    }
+  };
+
+  const applyTrial = async () => {
+    try {
+      let payload = {
+        student_id: '62ded2c9176c19c8b589d568',
+        coupon: '',
+        plan: 'TRIAL',
+        payment_mode: '',
+      };
+      const response = await Call('purchasePlan', payload);
+      console.log(response.data);
+    } catch (err) {
+      console.log(err.response.data);
+    }
   };
 
   return (
@@ -76,7 +108,9 @@ const PaymentScreen = ({navigation}) => {
                   placeholder="Coupon code"
                   style={{width: (Device.width * 2) / 3}}
                   value={states.coupon}
-                  onChangeText={coupon=>setStates(prev=>({...prev,coupon}))}
+                  onChangeText={coupon =>
+                    setStates(prev => ({...prev, coupon}))
+                  }
                 />
                 <Button
                   icon={<ChevronRight fill={Colors.light} />}
@@ -96,6 +130,7 @@ const PaymentScreen = ({navigation}) => {
                 icon=""
                 buttonText="Start Trial"
                 buttonStyle={{width: 150, shadowRadius: 3, marginTop: 20}}
+                onPress={applyTrial}
               />
             </View>
             <Separator text={'OR'} />
@@ -105,110 +140,118 @@ const PaymentScreen = ({navigation}) => {
                 and select payment mode.{' '}
               </Text>
               <View style={{paddingTop: 50}}>
-                <Neomorph
-                  inner={false}
-                  style={{
-                    shadowRadius: 5,
-                    borderRadius: 15,
-                    backgroundColor: Colors.backgroundColor,
-                    width: Device.width - 50,
-                    height: Device.width / 2.5,
-                    /* alignItems: 'center', */
-                    flexDirection: 'row',
-                    paddingHorizontal: 20,
-                    paddingTop: 10,
-                    marginBottom: 20,
-                  }}>
-                  <View style={styles.price}>
-                    <Text style={styles.priceText}>{'\u20B9' + 50}</Text>
-                  </View>
-                  <View>
-                    <Text style={styles.name}>{'Annual Plan'}</Text>
-                    <Text style={styles.title}>{'365 Days'}</Text>
-                    <Text style={styles.description}>
-                      {
-                        'Avail this annual plan at affordable cost and continue using appliction.'
-                      }
-                    </Text>
-                  </View>
-                </Neomorph>
-                <Neomorph
-                  inner={true}
-                  style={{
-                    shadowRadius: 5,
-                    borderRadius: 15,
-                    backgroundColor: Colors.backgroundColor,
-                    width: Device.width - 50,
-                    height: Device.width / 2.5,
-                    /* alignItems: 'center', */
-                    flexDirection: 'row',
-                    paddingHorizontal: 20,
-                    paddingTop: 10,
-                    marginBottom: 20,
-                  }}>
-                  <View style={styles.price}>
-                    <Text style={styles.priceText}>{'\u20B9' + 50}</Text>
-                  </View>
-                  <View style={{position: 'absolute', right: 15, top: 15}}>
-                    <Tick
-                      width={'40px'}
-                      height={'40px'}
-                      stroke={Colors.primary}
-                    />
-                  </View>
-                  <View>
-                    <Text style={styles.name}>{'Annual Plan'}</Text>
-                    <Text style={styles.title}>{'365 Days'}</Text>
-                    <Text style={styles.description}>
-                      {
-                        'Avail this annual plan at affordable cost and continue using appliction.'
-                      }
-                    </Text>
-                  </View>
-                </Neomorph>
-                <Neomorph
-                  inner={false}
-                  style={{
-                    shadowRadius: 5,
-                    borderRadius: 15,
-                    backgroundColor: Colors.backgroundColor,
-                    width: Device.width - 50,
-                    height: Device.width / 2.5,
-                    /* alignItems: 'center', */
-                    flexDirection: 'row',
-                    paddingHorizontal: 20,
-                    paddingTop: 10,
-                    marginBottom: 20,
-                  }}>
-                  <View style={styles.price}>
-                    <Text style={styles.priceText}>{'\u20B9' + 50}</Text>
-                  </View>
-                  <View>
-                    <Text style={styles.name}>{'Annual Plan'}</Text>
-                    <Text style={styles.title}>{'365 Days'}</Text>
-                    <Text style={styles.description}>
-                      {
-                        'Avail this annual plan at affordable cost and continue using appliction.'
-                      }
-                    </Text>
-                  </View>
-                </Neomorph>
-                {/* {plans.length &&
-                  plans.map((item, index) => {
-                    return (
-                      <Neomorph
-                        inner={false}
-                        style={{width: Device.width, height: Device.width}}>
-                        <Text>test</Text>
-                      </Neomorph>
-                    );
-                  })} */}
+                {plans.length
+                  ? plans.map((item, index) => {
+                      return item.name != 'TRIAL' ? (
+                        <Pressable
+                          onPress={() => setSelectedPlan(item._id)}
+                          key={index}>
+                          <Neomorph
+                            inner={item._id === selectedPlan}
+                            style={{
+                              shadowRadius: 5,
+                              borderRadius: 15,
+                              backgroundColor: Colors.backgroundColor,
+                              width: Device.width - 50,
+                              height: Device.width / 2.5,
+                              /* alignItems: 'center', */
+                              flexDirection: 'row',
+                              paddingHorizontal: 20,
+                              paddingTop: 10,
+                              marginBottom: 20,
+                            }}>
+                            <View style={styles.price}>
+                              <Text style={styles.priceText}>
+                                {'\u20B9' + item.amount}
+                              </Text>
+                            </View>
+                            {item._id === selectedPlan ? (
+                              <View
+                                style={{
+                                  position: 'absolute',
+                                  right: 15,
+                                  top: 15,
+                                }}>
+                                <Tick
+                                  width={'40px'}
+                                  height={'40px'}
+                                  stroke={Colors.primary}
+                                />
+                              </View>
+                            ) : (
+                              ''
+                            )}
+                            <View>
+                              <Text style={styles.name}>{item.name}</Text>
+                              <Text style={styles.title}>
+                                {item.duration_days}
+                              </Text>
+                              <Text style={styles.description}>
+                                {item.description}
+                              </Text>
+                            </View>
+                          </Neomorph>
+                        </Pressable>
+                      ) : (
+                        ''
+                      );
+                    })
+                  : ''}
+              </View>
+              <View style={{marginVertical: 25}}>
+                <Text style={{fontSize: 20, fontFamily: Fonts.Bold}}>Payment Type</Text>
+              </View>
+              <View style={{flexDirection: 'row'}}>
+                <View style={{marginRight: 25}}>
+                  <Pressable onPress={() => setPaymentType('cash')} >
+                    <Neomorph
+                      inner={paymentType === 'cash'}
+                      style={{
+                        shadowRadius: 5,
+                        borderRadius: 15,
+                        backgroundColor: Colors.backgroundColor,
+                        width: Device.width / 3,
+                        height: 50,
+                        alignItems: 'center',
+                        flexDirection: 'row',
+                        paddingHorizontal: 15,
+                        justifyContent: 'space-between'
+                      }}>
+                      <Text style={{fontSize: 20, fontFamily: Fonts.SemiBold,color: paymentType === 'cash' ? Colors.primary : Colors.dark}}>
+                        Cash
+                      </Text>
+                      {paymentType === 'cash' ? <Tick width={'30px'} height={'30px'} stroke={Colors.primary} /> : ''}
+                    </Neomorph>
+                  </Pressable>
+                </View>
+                <View>
+                  <Pressable onPress={() => setPaymentType('online')}>
+                    <Neomorph
+                      inner={paymentType === 'online'}
+                      style={{
+                        shadowRadius: 5,
+                        borderRadius: 15,
+                        backgroundColor: Colors.backgroundColor,
+                        width: Device.width / 3,
+                        height: 50,
+                        alignItems: 'center',
+                        flexDirection: 'row',
+                        paddingHorizontal: 15,
+                        justifyContent: 'space-between'
+                      }}>
+                      <Text style={{fontSize: 20, fontFamily: Fonts.SemiBold,color: paymentType === 'online' ? Colors.primary : Colors.dark}}>
+                        Online
+                      </Text>
+                      {paymentType === 'online' ? <Tick width={'30px'} height={'30px'} stroke={Colors.primary} /> : ''}
+                    </Neomorph>
+                  </Pressable>
+                </View>
               </View>
               <Button
                 icon=""
                 buttonText="Buy Now"
                 buttonStyle={{width: 150, shadowRadius: 3, marginTop: 20}}
-                onPress={() => navigation.navigate('Plans')}
+                onPress={null}
               />
             </View>
           </AppContainer>

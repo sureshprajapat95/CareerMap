@@ -57,7 +57,7 @@ const QueryScreen = ({navigation}) => {
         Call('getQuery',{},id).then(response=>{
           console.log(response.data)
         }).catch(error=>{
-          console.log(error.response.status)
+          console.log(error.response.data)
         })
       }catch(error){
 

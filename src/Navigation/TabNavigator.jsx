@@ -11,9 +11,9 @@ import TabButton from './Tabbutton';
 import HistoryScreen from '../Screens/HistoryScreen';
 import PaymentScreen from '../Screens/PaymentScreen';
 import Rupee from '../Utils/Icons/Rupee';
-import HomeScreenNoLogin from '../Screens/HomeScreenNoLogin';
-import QueryNoLogin from '../Screens/QueryNoLogin';
-import PaymentScreenNoLogin from '../Screens/PaymentScreenNoLogin';
+import HomeScreenNoLogin from '../Screens/NoLogin/HomeScreenNoLogin';
+import QueryNoLogin from '../Screens/NoLogin/QueryNoLogin';
+import PaymentScreenNoLogin from '../Screens/NoLogin/PaymentScreenNoLogin';
 
 const TabNavigator = () => {
   const Tab = createBottomTabNavigator();

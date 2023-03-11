@@ -1,22 +1,22 @@
 import {useFocusEffect} from '@react-navigation/native';
 import React, {useContext} from 'react';
 import {Text, ScrollView, View} from 'react-native';
-import AppContainer from '../Components/AppContainer';
-import AppHeader from '../Components/AppHeader';
-import Button from '../Components/Button';
-import NoLogin from '../Components/NoLogin';
-import QueryBox from '../Components/QueryBox';
-import QueryDetails from '../Components/QueryDetails';
-import TabHeader from '../Components/TabHeader';
-import {ToastMessage} from '../Components/Toastify';
-import {AuthContext} from '../Context/auth-context';
-import {Call} from '../Service/Api';
-import {Colors} from '../Utils/Colors';
-import {Device} from '../Utils/DeviceDimensions';
-import {Fonts} from '../Utils/Fonts';
-import Add from '../Utils/Icons/Add';
-import Login from '../Utils/Icons/Login';
-import Loader from '../Utils/Loader';
+import AppContainer from '../../Components/AppContainer';
+import AppHeader from '../../Components/AppHeader';
+import Button from '../../Components/Button';
+import NoLogin from '../../Components/NoLogin';
+import QueryBox from '../../Components/QueryBox';
+import QueryDetails from '../../Components/QueryDetails';
+import TabHeader from '../../Components/TabHeader';
+import {ToastMessage} from '../../Components/Toastify';
+import {AuthContext} from '../../Context/auth-context';
+import {Call} from '../../Service/Api';
+import {Colors} from '../../Utils/Colors';
+import {Device} from '../../Utils/DeviceDimensions';
+import {Fonts} from '../../Utils/Fonts';
+import Add from '../../Utils/Icons/Add';
+import Login from '../../Utils/Icons/Login';
+import Loader from '../../Utils/Loader';
 
 const QueryNoLogin = ({navigation}) => {
   const {isAuthenticated, token,logout} = useContext(AuthContext);
